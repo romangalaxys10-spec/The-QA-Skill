@@ -1,0 +1,5 @@
+# Expected
+- engine: quality
+- expect_quality_score_max: 70
+- expect_deduction_dimensions: assertionStrength, determinism
+- notes: analyzeTestFile(tests/search.test.ts) counts 2 test cases and 0 assertions — the file contains no expect/assert/should token anywhere, including comments and imports — so the largest single deduction fires: assertionStrength, 25 points, with the documented reason "test cannot fail for the right reason". The single setTimeout(resolve, 120) warm-up matches the sleep table, adding a determinism deduction of 8 points; total 33 yields a score of 67, under the 70 ceiling. Duplication may add up to 10 more points because the two case bodies are structurally identical after literal normalization — any such extra deduction only moves the score further below the ceiling. negativeCoverage and boundaryCoverage require 3+ cases and do not fire here by construction (2 cases); determinism, security, isolation, mockQuality and correctness deductions are avoided (no randomness, wall-clock, secrets, mocks, or .only/.skip). The manual repro record in failures.json documents the multi-word regression the assertion-free suite sailed over.

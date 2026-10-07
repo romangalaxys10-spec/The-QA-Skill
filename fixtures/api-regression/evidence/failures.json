@@ -1,0 +1,32 @@
+[
+  {
+    "testId": "tests/orders-api.spec.ts::rejects a draft without line items with 400",
+    "name": "rejects a draft without line items with 400",
+    "filePath": "tests/orders-api.spec.ts",
+    "layer": "api",
+    "attempts": [
+      {
+        "status": "failed",
+        "durationMs": 84,
+        "timestamp": "2026-10-04T09:55:31.221Z",
+        "environment": "ci-runner-us2-07",
+        "errorType": "AssertionError",
+        "errorMessage": "expected 200 to equal 400",
+        "errorStack": "AssertionError: expected 200 to equal 400\n    at /home/ci/runner-07/workspace/fleetfolio/tests/orders-api.spec.ts:22:26\n    at tests/helpers/http-test-client.ts:11:19\n    at app/api/orders.ts:44:16\n    at app/lib/order-schema.ts:29:13\n    at async Promise.all (index 0)\n    at ~/work/fleetfolio/node_modules/vitest/dist/chunks/run-CdG8kR3n.js:11802:11"
+      },
+      {
+        "status": "failed",
+        "durationMs": 79,
+        "timestamp": "2026-10-04T09:55:37.884Z",
+        "environment": "ci-runner-us2-07",
+        "errorType": "AssertionError",
+        "errorMessage": "expected 200 to equal 400",
+        "errorStack": "AssertionError: expected 200 to equal 400\n    at /home/ci/runner-07/workspace/fleetfolio/tests/orders-api.spec.ts:22:26\n    at tests/helpers/http-test-client.ts:11:19\n    at app/api/orders.ts:44:16\n    at ~/work/fleetfolio/node_modules/vitest/dist/chunks/run-CdG8kR3n.js:11802:11"
+      }
+    ],
+    "changedFiles": ["app/api/orders.ts"],
+    "networkVerified": true,
+    "domVerified": false,
+    "recentRuns": ["passed", "passed", "passed", "passed", "passed"]
+  }
+]

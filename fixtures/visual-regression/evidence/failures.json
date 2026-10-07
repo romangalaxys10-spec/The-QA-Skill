@@ -1,0 +1,34 @@
+[
+  {
+    "testId": "tests/home.visual.spec.ts::hero renders consistently at desktop",
+    "name": "hero renders consistently at desktop",
+    "filePath": "tests/home.visual.spec.ts",
+    "layer": "visual",
+    "attempts": [
+      {
+        "status": "failed",
+        "durationMs": 8944,
+        "timestamp": "2026-10-05T21:07:13.882Z",
+        "environment": "ci-runner-us2-05",
+        "browser": "chromium-133.0.6943.16",
+        "errorType": "Error",
+        "errorMessage": "Expected screenshot to match baseline \"home-hero-desktop.png\" but 18402 pixels (2.31%) differ above the 0.2% threshold.",
+        "errorStack": "Error: Expected screenshot to match baseline \"home-hero-desktop.png\" but 18402 pixels (2.31%) differ above the 0.2% threshold.\n    at /home/ci/runner-05/workspace/orchardlane/tests/home.visual.spec.ts:12:30\n    at openHero (~/work/orchardlane/tests/helpers/viewports.ts:21:15)\n    at /home/ci/runner-05/workspace/orchardlane/node_modules/playwright/lib/screenshot.js:88:20\n    at ~/work/orchardlane/node_modules/playwright/lib/client/page.js:412:19"
+      },
+      {
+        "status": "failed",
+        "durationMs": 8761,
+        "timestamp": "2026-10-05T21:07:41.260Z",
+        "environment": "ci-runner-us2-05",
+        "browser": "chromium-133.0.6943.16",
+        "errorType": "Error",
+        "errorMessage": "Expected screenshot to match baseline \"home-hero-desktop.png\" but 18402 pixels (2.31%) differ above the 0.2% threshold.",
+        "errorStack": "Error: Expected screenshot to match baseline \"home-hero-desktop.png\" but 18402 pixels (2.31%) differ above the 0.2% threshold.\n    at /home/ci/runner-05/workspace/orchardlane/tests/home.visual.spec.ts:12:30\n    at /home/ci/runner-05/workspace/orchardlane/node_modules/playwright/lib/screenshot.js:88:20"
+      }
+    ],
+    "changedFiles": ["app/ui/hero-section.tsx"],
+    "networkVerified": true,
+    "domVerified": true,
+    "recentRuns": ["passed", "passed", "passed", "passed", "passed"]
+  }
+]

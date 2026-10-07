@@ -1,0 +1,16 @@
+[
+  {
+    "message": "feat(lib): report filename slug helper",
+    "files": {
+      "app/lib/slugify.ts": "/**\n * Slug generator for exported report filenames. Exported by the report\n * pipeline and covered by unit specs.\n */\nexport function slugify(input: string): string {\n  return input\n    .trim()\n    .toLowerCase()\n    .replace(/[^a-z0-9]+/g, '-')\n    .replace(/^-+|-+$/g, '');\n}\n",
+      "tests/slugify.test.ts": "import { describe, it, expect } from 'vitest';\nimport { slugify } from '../app/lib/slugify';\n\ndescribe('slugify', () => {\n  it('lowercases and dashes a report title', () => {\n    expect(slugify('Quarterly Field Report')).toEqual('quarterly-field-report');\n  });\n\n  it('strips punctuation that is unsafe in export filenames', () => {\n    expect(slugify('Q1/2026: yield & loss')).toEqual('q1-2026-yield-loss');\n  });\n\n  it('collapses runs of separators into a single dash', () => {\n    expect(slugify('  spaced   out  ')).toEqual('spaced-out');\n  });\n});\n"
+    }
+  },
+  {
+    "message": "feat(api): usage metering endpoint for the billing importer",
+    "files": {
+      "app/api/usage.ts": "import { createHmac } from 'node:crypto';\n\nexport interface UsageQuery {\n  accountId: string;\n  periodStart: string;\n  periodEnd: string;\n}\n\nexport interface UsageTotals {\n  accountId: string;\n  apiCalls: number;\n  billedCents: number;\n  signature: string;\n}\n\nconst CENTS_PER_CALL = 4;\nconst SIGNING_SECRET = process.env.USAGE_SIGNING_SECRET ?? 'dev-only-usage-secret';\n\n/**\n * Subscription usage metering endpoint logic: GET /api/usage. Accounts are\n * billed per API call over the queried period; totals are signed so the\n * billing importer can detect tampering.\n */\nexport function parseUsageQuery(searchParams: URLSearchParams): UsageQuery {\n  const accountId = searchParams.get('accountId') ?? '';\n  const periodStart = searchParams.get('periodStart') ?? '';\n  const periodEnd = searchParams.get('periodEnd') ?? '';\n  if (!accountId.startsWith('acc_')) {\n    throw new Error('accountId must start with acc_');\n  }\n  if (Number.isNaN(Date.parse(periodStart)) || Number.isNaN(Date.parse(periodEnd))) {\n    throw new Error('periodStart and periodEnd must be ISO dates');\n  }\n  return { accountId, periodStart, periodEnd };\n}\n\nexport function meterUsage(callsByAccount: Map<string, number>, q: UsageQuery): UsageTotals {\n  const apiCalls = callsByAccount.get(q.accountId) ?? 0;\n  const billedCents = apiCalls * CENTS_PER_CALL;\n  const payload = `${q.accountId}|${q.periodStart}|${q.periodEnd}|${apiCalls}`;\n  const signature = createHmac('sha256', SIGNING_SECRET).update(payload).digest('hex');\n  return { accountId: q.accountId, apiCalls, billedCents, signature };\n}\n\nexport function handleUsageRequest(searchParams: URLSearchParams, calls: Map<string, number>): UsageTotals {\n  const q = parseUsageQuery(searchParams);\n  return meterUsage(calls, q);\n}\n",
+      "app/lib/slugify.ts": "/**\n * Slug generator for exported report filenames. Exported by the report\n * pipeline and covered by unit specs — the other, newer API module in this\n * service has no specs reaching it at all.\n */\nexport function slugify(input: string): string {\n  return input\n    .trim()\n    .toLowerCase()\n    .replace(/[^a-z0-9]+/g, '-')\n    .replace(/^-+|-+$/g, '');\n}\n"
+    }
+  }
+]

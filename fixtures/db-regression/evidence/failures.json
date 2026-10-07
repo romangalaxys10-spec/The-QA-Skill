@@ -1,0 +1,32 @@
+[
+  {
+    "testId": "tests/users.repo.spec.ts::returns the existing user when the email differs only by case",
+    "name": "returns the existing user when the email differs only by case",
+    "filePath": "tests/users.repo.spec.ts",
+    "layer": "integration",
+    "attempts": [
+      {
+        "status": "failed",
+        "durationMs": 512,
+        "timestamp": "2026-10-01T11:26:02.914Z",
+        "environment": "ci-runner-eu1-09",
+        "errorType": "error",
+        "errorMessage": "duplicate key value violates unique constraint \"users_email_unique\"",
+        "errorStack": "error: duplicate key value violates unique constraint \"users_email_unique\"\n    at ~/work/meditrack/node_modules/pg/lib/client.js:545:31\n    at /home/ci/agent-09/workspace/meditrack/app/db/users.ts:27:19\n    at app/db/users.ts:36:16\n    at tests/users.repo.spec.ts:19:26\n    at async Promise.all (index 0)\n    at ~/work/meditrack/node_modules/vitest/dist/chunks/runtime-Xy7f.js:881:24"
+      },
+      {
+        "status": "failed",
+        "durationMs": 547,
+        "timestamp": "2026-10-01T11:26:09.380Z",
+        "environment": "ci-runner-eu1-09",
+        "errorType": "error",
+        "errorMessage": "duplicate key value violates unique constraint \"users_email_unique\"",
+        "errorStack": "error: duplicate key value violates unique constraint \"users_email_unique\"\n    at ~/work/meditrack/node_modules/pg/lib/client.js:545:31\n    at /home/ci/agent-09/workspace/meditrack/app/db/users.ts:27:19\n    at tests/users.repo.spec.ts:19:26\n    at ~/work/meditrack/node_modules/vitest/dist/chunks/runtime-Xy7f.js:881:24"
+      }
+    ],
+    "changedFiles": ["app/db/users.ts", "app/db/migrations/2026_09_14_users_email_unique.sql"],
+    "networkVerified": true,
+    "domVerified": false,
+    "recentRuns": ["passed", "passed", "passed", "passed"]
+  }
+]

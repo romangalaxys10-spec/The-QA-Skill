@@ -1,0 +1,39 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src"
+  },
+  "include": [
+    "src"
+  ],
+  "references": [
+    {
+      "path": "../core"
+    },
+    {
+      "path": "../reasoning"
+    },
+    {
+      "path": "../graph"
+    },
+    {
+      "path": "../data"
+    },
+    {
+      "path": "../healing"
+    },
+    {
+      "path": "../runners"
+    },
+    {
+      "path": "../reporting"
+    },
+    {
+      "path": "../agents"
+    },
+    {
+      "path": "../mcp-server"
+    }
+  ]
+}

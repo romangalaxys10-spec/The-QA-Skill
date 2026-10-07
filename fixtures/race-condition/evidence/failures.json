@@ -1,0 +1,29 @@
+[
+  {
+    "testId": "tests/queue.spec.ts::delivers one completion event per finished job",
+    "name": "delivers one completion event per finished job",
+    "filePath": "tests/queue.spec.ts",
+    "layer": "integration",
+    "attempts": [
+      {
+        "status": "failed",
+        "durationMs": 184,
+        "timestamp": "2026-10-04T22:31:07.655Z",
+        "environment": "ci-runner-us2-09",
+        "errorType": "AssertionError",
+        "errorMessage": "AssertionError: expected 1 to equal 2 events",
+        "errorStack": "AssertionError: expected 1 to equal 2 events\n    at /home/ci/runner-09/workspace/swiftlabel/tests/queue.spec.ts:19:37\n    at app/jobs/queue.ts:29:20\n    at app/jobs/worker.ts:11:19\n    at tests/helpers/event-collector.ts:12:14\n    at ~/work/swiftlabel/node_modules/vitest/dist/chunks/runtime-Xy7f.js:881:24"
+      },
+      {
+        "status": "passed",
+        "durationMs": 161,
+        "timestamp": "2026-10-04T22:31:12.902Z",
+        "environment": "ci-runner-us2-09"
+      }
+    ],
+    "changedFiles": [],
+    "networkVerified": true,
+    "domVerified": false,
+    "recentRuns": ["passed", "failed", "passed", "failed"]
+  }
+]

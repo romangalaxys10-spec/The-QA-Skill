@@ -1,0 +1,23 @@
+{
+  "name": "@the-qa-skill/reasoning",
+  "version": "0.1.0",
+  "description": "ReasoningProvider interface — deterministic-first, multi-model, no vendor lock-in",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/romangalaxys10-spec/The-QA-Skill.git",
+    "directory": "packages/reasoning"
+  },
+  "homepage": "https://xshredo.com/promo/anytest",
+  "dependencies": {
+    "@the-qa-skill/core": "^0.1.0"
+  }
+}

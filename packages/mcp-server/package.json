@@ -1,0 +1,30 @@
+{
+  "name": "@the-qa-skill/mcp-server",
+  "version": "0.1.0",
+  "description": "MCP server exposing 11 QA tools over stdio JSON-RPC",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "the-qa-skill-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "node dist/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/romangalaxys10-spec/The-QA-Skill.git",
+    "directory": "packages/mcp-server"
+  },
+  "homepage": "https://xshredo.com/promo/anytest",
+  "dependencies": {
+    "@the-qa-skill/agents": "^0.1.0",
+    "@the-qa-skill/core": "^0.1.0"
+  }
+}

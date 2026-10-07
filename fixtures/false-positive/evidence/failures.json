@@ -1,0 +1,32 @@
+[
+  {
+    "testId": "manual/repro::multi-word search returns catalog listings",
+    "name": "multi-word search returns catalog listings",
+    "filePath": "manual/repro",
+    "layer": "manual",
+    "attempts": [
+      {
+        "status": "failed",
+        "durationMs": 96,
+        "timestamp": "2026-10-06T18:22:04.715Z",
+        "environment": "local-macos-arm64",
+        "errorType": "Error",
+        "errorMessage": "search(\"desk mat\") returned 0 results; the catalog contains 2 desk-adjacent listings (SKU-DESK-2, SKU-MAT-7)",
+        "errorStack": "Error: search(\"desk mat\") returned 0 results; the catalog contains 2 desk-adjacent listings (SKU-DESK-2, SKU-MAT-7)\n    at ~/work/findit/manual/repro/search-repro.ts:18:13\n    at app/search/engine.ts:33:22\n    at app/search/tokenizer.ts:12:16\n    at async Promise.all (index 0)"
+      },
+      {
+        "status": "failed",
+        "durationMs": 88,
+        "timestamp": "2026-10-06T18:22:31.402Z",
+        "environment": "local-macos-arm64",
+        "errorType": "Error",
+        "errorMessage": "search(\"standing desk\") returned 0 results; the catalog contains 1 desk-adjacent listing (SKU-DESK-2)",
+        "errorStack": "Error: search(\"standing desk\") returned 0 results; the catalog contains 1 desk-adjacent listing (SKU-DESK-2)\n    at ~/work/findit/manual/repro/search-repro.ts:18:13\n    at app/search/engine.ts:33:22"
+      }
+    ],
+    "changedFiles": ["app/search/engine.ts"],
+    "networkVerified": true,
+    "domVerified": false,
+    "recentRuns": ["passed", "passed", "passed"]
+  }
+]

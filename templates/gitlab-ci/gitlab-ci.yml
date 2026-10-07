@@ -1,0 +1,106 @@
+# The-QA-Skill — GitLab CI template.
+#
+# Copy into your repository as `.gitlab-ci.yml`.
+# Requires The-QA-Skill installed as a devDependency (it provides the `qa` CLI):
+#
+#   npm i -D the-qa-skill
+#
+# Stages: doctor -> impact -> test -> gate.
+# - Merge-request pipelines run: doctor (advisory) + impact + test --policy pr + gate.
+# - Scheduled (nightly) pipelines run: test --policy nightly + flake + coverage.
+# Every job exports .theqa/artifacts so findings survive the pipeline.
+
+stages:
+  - doctor
+  - impact
+  - test
+  - gate
+
+default:
+  image: node:20
+  before_script:
+    - npm ci --no-audit --no-fund
+
+variables:
+  QA_ARTIFACTS_DIR: .theqa/artifacts
+
+.node-artifacts: &node-artifacts
+  artifacts:
+    when: always
+    expire_in: 1 week
+    paths:
+      - .theqa/artifacts/
+
+# --------------------------------------------------------------------------
+# Merge-request pipeline (rules: merge_request_event)
+# --------------------------------------------------------------------------
+
+qa:doctor:
+  stage: doctor
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  script:
+    - mkdir -p ${QA_ARTIFACTS_DIR}
+    # Advisory: doctor findings are visible in the log but never fail the MR
+    # pipeline (job-level allow_failure below is the "continue on warning").
+    - npx qa doctor
+  <<: *node-artifacts
+  # Job-level "continue-on-warning": doctor findings do not block the MR.
+  allow_failure: true
+
+qa:impact:
+  stage: impact
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  script:
+    - mkdir -p ${QA_ARTIFACTS_DIR}
+    # CI_MERGE_REQUEST_DIFF_BASE_SHA is the merge base of the MR — the exact
+    # range the impact engine should analyze.
+    - npx qa impact --range "${CI_MERGE_REQUEST_DIFF_BASE_SHA}..HEAD" --json > ${QA_ARTIFACTS_DIR}/impact.json
+  <<: *node-artifacts
+
+qa:test:mr:
+  stage: test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  script:
+    - mkdir -p ${QA_ARTIFACTS_DIR}
+    - npx qa test --policy pr
+  <<: *node-artifacts
+
+# --------------------------------------------------------------------------
+# Nightly pipeline (rules: schedule)
+# --------------------------------------------------------------------------
+
+qa:nightly:
+  stage: test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+  script:
+    - mkdir -p ${QA_ARTIFACTS_DIR}
+    - npx qa test --policy nightly
+    - npx qa flake | tee ${QA_ARTIFACTS_DIR}/flake-report.txt
+    - npx qa coverage | tee ${QA_ARTIFACTS_DIR}/coverage-report.txt
+  <<: *node-artifacts
+
+# --------------------------------------------------------------------------
+# Gate — the only stage allowed to fail the pipeline on quality grounds.
+# --------------------------------------------------------------------------
+
+qa:gate:
+  stage: gate
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+  script:
+    - mkdir -p ${QA_ARTIFACTS_DIR}
+    # ReleaseGateResult verdict: PASS | PASS_WITH_WARNINGS | BLOCKED | FAIL | UNKNOWN.
+    - npx qa release --json | tee ${QA_ARTIFACTS_DIR}/release-gate.json
+    - verdict="$(jq -r '.verdict // .data.verdict // "UNKNOWN"' ${QA_ARTIFACTS_DIR}/release-gate.json)"
+    - echo "Release gate verdict: ${verdict}"
+    - >
+      case "${verdict}" in
+        BLOCKED) echo "QA release gate BLOCKED — inspect ${QA_ARTIFACTS_DIR}/release-gate.json"; exit 1 ;;
+        *) echo "Gate allows promotion (verdict: ${verdict})" ;;
+      esac
+  <<: *node-artifacts

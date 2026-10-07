@@ -1,0 +1,5 @@
+# Expected
+- engine: triage
+- expect_category: REAL_REGRESSION
+- expect_min_confidence: 0.9
+- notes: Two attempts failed with the identical assertion "AssertionError: expected 200 to equal 400" on POST /api/orders with an invalid payload (items: []) — a deterministic, reproducible assertion failure (2/2), and tests/orders-api.spec.ts imports handleCreateOrder from app/api/orders.ts, so coversChangedCode=true. recentRuns are all passed, ruling out intermittent history. Walking classifyFailure in order: rule 1 (dependency) no match; rule 2 (config) no SyntaxError/TypeError/invalid-option shapes; rule 3 (selector) no TimeoutError/locator/waiting-for strings; rule 4 (env) no ECONNREFUSED/ETIMEDOUT-family strings; rule 5 (network) no "fetch failed"/"net::"/"request failed" strings; rule 6 (data) no duplicate-key/fixture strings; rule 7 no timeout strings; rules 8/9 need passAfterRetry which is false. Rule 10 fires (consistent assertion failure over changed code) and returns REAL_REGRESSION at 0.92. The error strings were chosen to leave every earlier rule cold so the fixture genuinely exercises rule 10.

@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+*.tsbuildinfo
+coverage/
+
+# The-QA-Skill runtime artifacts
+.theqa/
+artifacts/
+
+# Secrets — never commit
+.env
+.env.*
+*.pem
+*.key
+secrets.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# Benchmark scratch
+benchmarks/agentic-qa/.tmp/

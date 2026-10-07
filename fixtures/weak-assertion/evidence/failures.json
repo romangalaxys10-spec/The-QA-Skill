@@ -1,0 +1,32 @@
+[
+  {
+    "testId": "regression-pack/pricing.staging.spec.ts::tiered discount at the volume boundary",
+    "name": "tiered discount at the volume boundary",
+    "filePath": "regression-pack/pricing.staging.spec.ts",
+    "layer": "integration",
+    "attempts": [
+      {
+        "status": "failed",
+        "durationMs": 623,
+        "timestamp": "2026-10-06T10:14:39.522Z",
+        "environment": "staging-us2",
+        "errorType": "AssertionError",
+        "errorMessage": "expected 21200 to equal 18450",
+        "errorStack": "AssertionError: expected 21200 to equal 18450\n    at ~/work/ratecard/regression-pack/pricing.staging.spec.ts:44:29\n    at app/pricing/rate-card.ts:24:17\n    at /home/ci/agent-01/workspace/ratecard/node_modules/vitest/dist/chunks/run-CdG8kR3n.js:11802:11"
+      },
+      {
+        "status": "failed",
+        "durationMs": 589,
+        "timestamp": "2026-10-06T10:14:48.107Z",
+        "environment": "staging-us2",
+        "errorType": "AssertionError",
+        "errorMessage": "expected 21200 to equal 18450",
+        "errorStack": "AssertionError: expected 21200 to equal 18450\n    at ~/work/ratecard/regression-pack/pricing.staging.spec.ts:44:29\n    at app/pricing/rate-card.ts:24:17"
+      }
+    ],
+    "changedFiles": ["app/pricing/rate-card.ts", "tests/pricing.test.ts"],
+    "networkVerified": true,
+    "domVerified": false,
+    "recentRuns": ["passed", "passed"]
+  }
+]

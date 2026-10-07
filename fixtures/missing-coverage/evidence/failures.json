@@ -1,0 +1,32 @@
+[
+  {
+    "testId": "manual/staging-smoke::usage metering returns billed totals",
+    "name": "usage metering returns billed totals",
+    "filePath": "manual/staging-smoke",
+    "layer": "manual",
+    "attempts": [
+      {
+        "status": "failed",
+        "durationMs": 412,
+        "timestamp": "2026-10-06T15:02:47.330Z",
+        "environment": "staging-eu1",
+        "errorType": "AssertionError",
+        "errorMessage": "expected 500 to equal 200 (GET /api/usage?accountId=acc_204&periodStart=2026-09-01&periodEnd=2026-09-30)",
+        "errorStack": "AssertionError: expected 500 to equal 200\n    at ~/work/ledgerline/qa/smoke/usage-smoke.ts:31:22\n    at app/api/usage.ts:24:11\n    at /home/ci/agent-01/workspace/ledgerline/node_modules/undici/lib/client.js:101:19\n    at async Promise.all (index 0)"
+      },
+      {
+        "status": "failed",
+        "durationMs": 397,
+        "timestamp": "2026-10-06T15:03:12.881Z",
+        "environment": "staging-eu1",
+        "errorType": "AssertionError",
+        "errorMessage": "expected 500 to equal 200 (GET /api/usage?accountId=acc_204&periodStart=2026-09-01&periodEnd=2026-09-30)",
+        "errorStack": "AssertionError: expected 500 to equal 200\n    at ~/work/ledgerline/qa/smoke/usage-smoke.ts:31:22\n    at app/api/usage.ts:24:11\n    at /home/ci/agent-01/workspace/ledgerline/node_modules/undici/lib/client.js:101:19"
+      }
+    ],
+    "changedFiles": ["app/api/usage.ts"],
+    "networkVerified": true,
+    "domVerified": false,
+    "recentRuns": ["passed", "passed", "passed"]
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "name": "@the-qa-skill/cli",
+  "version": "0.1.0",
+  "description": "The-QA-Skill CLI — 16 commands: init discover plan risk generate review test impact triage heal flake coverage release report doctor explain",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "qa": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/romangalaxys10-spec/The-QA-Skill.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://xshredo.com/promo/anytest",
+  "dependencies": {
+    "@the-qa-skill/agents": "^0.1.0",
+    "@the-qa-skill/core": "^0.1.0",
+    "@the-qa-skill/reporting": "^0.1.0"
+  }
+}

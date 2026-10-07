@@ -1,0 +1,31 @@
+[
+  {
+    "testId": "tests/dashboard.spec.ts::shows all six KPI cards",
+    "name": "shows all six KPI cards",
+    "filePath": "tests/dashboard.spec.ts",
+    "layer": "e2e",
+    "attempts": [
+      {
+        "status": "failed",
+        "durationMs": 30124,
+        "timestamp": "2026-10-02T03:12:44.190Z",
+        "environment": "ci-runner-us2-11",
+        "browser": "chromium-133.0.6943.16",
+        "errorType": "Error",
+        "errorMessage": "Test timeout of 30000ms exceeded.",
+        "errorStack": "Error: Test timeout of 30000ms exceeded.\n    at /home/ci/runner-11/workspace/pulseboard/tests/dashboard.spec.ts:14:34\n    at KpiPage.open (~/work/pulseboard/tests/helpers/kpi-page.ts:12:22)\n    at /home/ci/runner-11/workspace/pulseboard/node_modules/@playwright/test/lib/testType.js:217:5\n    at ~/work/pulseboard/node_modules/playwright/lib/client/page.js:112:18"
+      },
+      {
+        "status": "passed",
+        "durationMs": 21388,
+        "timestamp": "2026-10-02T03:13:22.604Z",
+        "environment": "ci-runner-us2-11",
+        "browser": "chromium-133.0.6943.16"
+      }
+    ],
+    "changedFiles": [],
+    "networkVerified": true,
+    "domVerified": false,
+    "recentRuns": ["passed", "failed", "passed"]
+  }
+]

@@ -1,0 +1,640 @@
+{
+  "schemaVersion": 1,
+  "tool": "agentic-qa-benchmark",
+  "generatedAt": "2026-10-07T14:18:59.823Z",
+  "node": "v24.21.0",
+  "disclaimer": "Measured on the fixture corpus of this repository with the deterministic engines in packages/core. No LLM, no network, no randomness. Reproducible via npm run benchmark.",
+  "fixturesRun": 13,
+  "fixturesErrored": 0,
+  "pass": 13,
+  "fail": 0,
+  "engines": {
+    "triage": {
+      "total": 18,
+      "passed": 18,
+      "failed": 0
+    },
+    "quality": {
+      "total": 9,
+      "passed": 9,
+      "failed": 0
+    },
+    "coverage": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "risk": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "selection": {
+      "total": 0,
+      "passed": 0,
+      "failed": 0
+    }
+  },
+  "triageConfusion": {
+    "falseNegatives": {},
+    "falsePositives": {}
+  },
+  "meanRuntimeMs": 25.483842307692306,
+  "harnessErrors": [],
+  "details": [
+    {
+      "fixture": "a11y-regression",
+      "declaredEngine": "triage",
+      "pass": true,
+      "runtimeMs": 59.300254,
+      "checks": [
+        {
+          "engine": "triage",
+          "kind": "category",
+          "expected": "SELECTOR_FAILURE",
+          "actual": "SELECTOR_FAILURE",
+          "pass": true
+        },
+        {
+          "engine": "triage",
+          "kind": "min-confidence",
+          "expected": ">= 0.8",
+          "actual": "0.90",
+          "pass": true
+        }
+      ],
+      "evaluatedEngines": [
+        "triage"
+      ],
+      "context": {
+        "records": [
+          {
+            "testId": "tests/settings.spec.ts::opens the settings panel from the header icon button",
+            "coversChangedCode": true,
+            "relevantChangedFiles": [
+              "app/ui/icon-button.tsx",
+              "app/web/settings-page.tsx"
+            ],
+            "selectorChangedInDiff": true,
+            "engineCategory": "SELECTOR_FAILURE",
+            "engineConfidence": 0.9,
+            "engineLabel": "OBSERVED"
+          }
+        ],
+        "changeSetSize": 2
+      }
+    },
+    {
+      "fixture": "api-regression",
+      "declaredEngine": "triage",
+      "pass": true,
+      "runtimeMs": 29.646682,
+      "checks": [
+        {
+          "engine": "triage",
+          "kind": "category",
+          "expected": "REAL_REGRESSION",
+          "actual": "REAL_REGRESSION",
+          "pass": true
+        },
+        {
+          "engine": "triage",
+          "kind": "min-confidence",
+          "expected": ">= 0.9",
+          "actual": "0.92",
+          "pass": true
+        }
+      ],
+      "evaluatedEngines": [
+        "triage"
+      ],
+      "context": {
+        "records": [
+          {
+            "testId": "tests/orders-api.spec.ts::rejects a draft without line items with 400",
+            "coversChangedCode": true,
+            "relevantChangedFiles": [
+              "app/api/orders.ts"
+            ],
+            "selectorChangedInDiff": false,
+            "engineCategory": "REAL_REGRESSION",
+            "engineConfidence": 0.92,
+            "engineLabel": "OBSERVED"
+          }
+        ],
+        "changeSetSize": 1
+      }
+    },
+    {
+      "fixture": "auth-bug",
+      "declaredEngine": "triage",
+      "pass": true,
+      "runtimeMs": 28.223079,
+      "checks": [
+        {
+          "engine": "triage",
+          "kind": "category",
+          "expected": "REAL_REGRESSION",
+          "actual": "REAL_REGRESSION",
+          "pass": true
+        },
+        {
+          "engine": "triage",
+          "kind": "min-confidence",
+          "expected": ">= 0.9",
+          "actual": "0.92",
+          "pass": true
+        }
+      ],
+      "evaluatedEngines": [
+        "triage"
+      ],
+      "context": {
+        "records": [
+          {
+            "testId": "tests/auth.spec.ts::keeps a remembered device session valid for the full 7 day window",
+            "coversChangedCode": true,
+            "relevantChangedFiles": [
+              "app/lib/session.ts"
+            ],
+            "selectorChangedInDiff": false,
+            "engineCategory": "REAL_REGRESSION",
+            "engineConfidence": 0.92,
+            "engineLabel": "OBSERVED"
+          }
+        ],
+        "changeSetSize": 1
+      }
+    },
+    {
+      "fixture": "db-regression",
+      "declaredEngine": "triage",
+      "pass": true,
+      "runtimeMs": 27.699308,
+      "checks": [
+        {
+          "engine": "triage",
+          "kind": "category",
+          "expected": "TEST_DATA_DEFECT",
+          "actual": "TEST_DATA_DEFECT",
+          "pass": true
+        },
+        {
+          "engine": "triage",
+          "kind": "min-confidence",
+          "expected": ">= 0.75",
+          "actual": "0.80",
+          "pass": true
+        }
+      ],
+      "evaluatedEngines": [
+        "triage"
+      ],
+      "context": {
+        "records": [
+          {
+            "testId": "tests/users.repo.spec.ts::returns the existing user when the email differs only by case",
+            "coversChangedCode": true,
+            "relevantChangedFiles": [
+              "app/db/users.ts",
+              "app/db/migrations/2026_09_14_users_email_unique.sql"
+            ],
+            "selectorChangedInDiff": false,
+            "engineCategory": "TEST_DATA_DEFECT",
+            "engineConfidence": 0.8,
+            "engineLabel": "OBSERVED"
+          }
+        ],
+        "changeSetSize": 2
+      }
+    },
+    {
+      "fixture": "false-negative",
+      "declaredEngine": "quality",
+      "pass": true,
+      "runtimeMs": 2.841278,
+      "checks": [
+        {
+          "engine": "quality",
+          "kind": "quality-score-max",
+          "expected": "<= 80",
+          "actual": "74",
+          "pass": true
+        },
+        {
+          "engine": "quality",
+          "kind": "deduction-dimension",
+          "expected": "assertionStrength",
+          "actual": "negativeCoverage, assertionStrength, boundaryCoverage",
+          "pass": true
+        }
+      ],
+      "evaluatedEngines": [
+        "quality"
+      ],
+      "context": {
+        "analyzedFiles": [
+          {
+            "filePath": "tests/coupon.test.ts",
+            "score": 74,
+            "testCount": 3
+          }
+        ],
+        "deductionDimensions": [
+          "negativeCoverage",
+          "assertionStrength",
+          "boundaryCoverage"
+        ]
+      }
+    },
+    {
+      "fixture": "false-positive",
+      "declaredEngine": "quality",
+      "pass": true,
+      "runtimeMs": 1.016112,
+      "checks": [
+        {
+          "engine": "quality",
+          "kind": "quality-score-max",
+          "expected": "<= 70",
+          "actual": "67",
+          "pass": true
+        },
+        {
+          "engine": "quality",
+          "kind": "deduction-dimension",
+          "expected": "assertionStrength",
+          "actual": "assertionStrength, determinism",
+          "pass": true
+        },
+        {
+          "engine": "quality",
+          "kind": "deduction-dimension",
+          "expected": "determinism",
+          "actual": "assertionStrength, determinism",
+          "pass": true
+        }
+      ],
+      "evaluatedEngines": [
+        "quality"
+      ],
+      "context": {
+        "analyzedFiles": [
+          {
+            "filePath": "tests/search.test.ts",
+            "score": 67,
+            "testCount": 2
+          }
+        ],
+        "deductionDimensions": [
+          "assertionStrength",
+          "determinism"
+        ]
+      }
+    },
+    {
+      "fixture": "flaky-test",
+      "declaredEngine": "triage",
+      "pass": true,
+      "runtimeMs": 27.457911,
+      "checks": [
+        {
+          "engine": "triage",
+          "kind": "category",
+          "expected": "FLAKE",
+          "actual": "FLAKE",
+          "pass": true
+        },
+        {
+          "engine": "triage",
+          "kind": "min-confidence",
+          "expected": ">= 0.85",
+          "actual": "0.88",
+          "pass": true
+        }
+      ],
+      "evaluatedEngines": [
+        "triage"
+      ],
+      "context": {
+        "records": [
+          {
+            "testId": "tests/dashboard.spec.ts::shows all six KPI cards",
+            "coversChangedCode": false,
+            "relevantChangedFiles": [],
+            "selectorChangedInDiff": false,
+            "engineCategory": "FLAKE",
+            "engineConfidence": 0.88,
+            "engineLabel": "OBSERVED"
+          }
+        ],
+        "changeSetSize": 1
+      },
+      "diagnostics": {
+        "flakeViews": [
+          {
+            "testId": "tests/dashboard.spec.ts::shows all six KPI cards",
+            "score": 50,
+            "verdict": "flaky"
+          }
+        ]
+      }
+    },
+    {
+      "fixture": "missing-coverage",
+      "declaredEngine": "coverage",
+      "pass": true,
+      "runtimeMs": 25.863039,
+      "checks": [
+        {
+          "engine": "coverage",
+          "kind": "gap-area",
+          "expected": "api",
+          "actual": "api:app/api/usage.ts",
+          "pass": true
+        }
+      ],
+      "evaluatedEngines": [
+        "coverage"
+      ],
+      "context": {
+        "weightedCoverage": 14.3,
+        "fileCoverage": 50,
+        "gaps": [
+          {
+            "path": "app/api/usage.ts",
+            "area": "api",
+            "riskWeight": 6
+          }
+        ]
+      }
+    },
+    {
+      "fixture": "payment-regression",
+      "declaredEngine": "risk",
+      "pass": true,
+      "runtimeMs": 37.390294,
+      "checks": [
+        {
+          "engine": "risk",
+          "kind": "risk-tier",
+          "expected": "critical",
+          "actual": "critical (score 25.2)",
+          "pass": true
+        },
+        {
+          "engine": "triage",
+          "kind": "category",
+          "expected": "REAL_REGRESSION",
+          "actual": "REAL_REGRESSION",
+          "pass": true
+        },
+        {
+          "engine": "triage",
+          "kind": "min-confidence",
+          "expected": ">= 0.85",
+          "actual": "0.92",
+          "pass": true
+        }
+      ],
+      "evaluatedEngines": [
+        "risk",
+        "triage"
+      ],
+      "context": {
+        "changedFiles": [
+          {
+            "path": "app/payments/charge.ts",
+            "area": "payment",
+            "additions": 3,
+            "deletions": 3
+          }
+        ],
+        "score": 25.2,
+        "tier": "critical",
+        "topFactors": [
+          {
+            "factor": "businessCriticality",
+            "contribution": "19",
+            "reasons": [
+              "payment logic changed (app/payments/charge.ts)"
+            ]
+          },
+          {
+            "factor": "userImpact",
+            "contribution": "2.25",
+            "reasons": [
+              "no user-facing surface detected in change set"
+            ]
+          },
+          {
+            "factor": "changeSurface",
+            "contribution": "1.50",
+            "reasons": [
+              "1 file changed",
+              "6 lines added/removed"
+            ]
+          }
+        ],
+        "records": [
+          {
+            "testId": "tests/charge.spec.ts::captures exactly once when the first attempt times out client-side",
+            "coversChangedCode": true,
+            "relevantChangedFiles": [
+              "app/payments/charge.ts"
+            ],
+            "selectorChangedInDiff": false,
+            "engineCategory": "REAL_REGRESSION",
+            "engineConfidence": 0.92,
+            "engineLabel": "OBSERVED"
+          }
+        ],
+        "changeSetSize": 1
+      }
+    },
+    {
+      "fixture": "race-condition",
+      "declaredEngine": "triage",
+      "pass": true,
+      "runtimeMs": 37.161024,
+      "checks": [
+        {
+          "engine": "triage",
+          "kind": "category",
+          "expected": "FLAKE",
+          "actual": "FLAKE",
+          "pass": true
+        },
+        {
+          "engine": "triage",
+          "kind": "min-confidence",
+          "expected": ">= 0.7",
+          "actual": "0.88",
+          "pass": true
+        }
+      ],
+      "evaluatedEngines": [
+        "triage"
+      ],
+      "context": {
+        "records": [
+          {
+            "testId": "tests/queue.spec.ts::delivers one completion event per finished job",
+            "coversChangedCode": false,
+            "relevantChangedFiles": [],
+            "selectorChangedInDiff": false,
+            "engineCategory": "FLAKE",
+            "engineConfidence": 0.88,
+            "engineLabel": "OBSERVED"
+          }
+        ],
+        "changeSetSize": 1
+      },
+      "diagnostics": {
+        "flakeViews": [
+          {
+            "testId": "tests/queue.spec.ts::delivers one completion event per finished job",
+            "score": 48,
+            "verdict": "flaky"
+          }
+        ]
+      }
+    },
+    {
+      "fixture": "selector-change",
+      "declaredEngine": "triage",
+      "pass": true,
+      "runtimeMs": 26.388274,
+      "checks": [
+        {
+          "engine": "triage",
+          "kind": "category",
+          "expected": "SELECTOR_FAILURE",
+          "actual": "SELECTOR_FAILURE",
+          "pass": true
+        },
+        {
+          "engine": "triage",
+          "kind": "min-confidence",
+          "expected": ">= 0.85",
+          "actual": "0.90",
+          "pass": true
+        }
+      ],
+      "evaluatedEngines": [
+        "triage"
+      ],
+      "context": {
+        "records": [
+          {
+            "testId": "tests/checkout.spec.ts::places an order from the review panel",
+            "coversChangedCode": true,
+            "relevantChangedFiles": [
+              "app/ui/checkout.tsx"
+            ],
+            "selectorChangedInDiff": true,
+            "engineCategory": "SELECTOR_FAILURE",
+            "engineConfidence": 0.9,
+            "engineLabel": "OBSERVED"
+          }
+        ],
+        "changeSetSize": 1
+      }
+    },
+    {
+      "fixture": "visual-regression",
+      "declaredEngine": "triage",
+      "pass": true,
+      "runtimeMs": 27.488061,
+      "checks": [
+        {
+          "engine": "triage",
+          "kind": "category",
+          "expected": "REAL_REGRESSION",
+          "actual": "REAL_REGRESSION",
+          "pass": true
+        },
+        {
+          "engine": "triage",
+          "kind": "min-confidence",
+          "expected": ">= 0.7",
+          "actual": "0.92",
+          "pass": true
+        }
+      ],
+      "evaluatedEngines": [
+        "triage"
+      ],
+      "context": {
+        "records": [
+          {
+            "testId": "tests/home.visual.spec.ts::hero renders consistently at desktop",
+            "coversChangedCode": true,
+            "relevantChangedFiles": [
+              "app/ui/hero-section.tsx"
+            ],
+            "selectorChangedInDiff": false,
+            "engineCategory": "REAL_REGRESSION",
+            "engineConfidence": 0.92,
+            "engineLabel": "OBSERVED"
+          }
+        ],
+        "changeSetSize": 1
+      }
+    },
+    {
+      "fixture": "weak-assertion",
+      "declaredEngine": "quality",
+      "pass": true,
+      "runtimeMs": 0.814634,
+      "checks": [
+        {
+          "engine": "quality",
+          "kind": "quality-score-max",
+          "expected": "<= 75",
+          "actual": "58",
+          "pass": true
+        },
+        {
+          "engine": "quality",
+          "kind": "deduction-dimension",
+          "expected": "assertionStrength",
+          "actual": "assertionStrength, negativeCoverage, boundaryCoverage, observability",
+          "pass": true
+        },
+        {
+          "engine": "quality",
+          "kind": "deduction-dimension",
+          "expected": "negativeCoverage",
+          "actual": "assertionStrength, negativeCoverage, boundaryCoverage, observability",
+          "pass": true
+        },
+        {
+          "engine": "quality",
+          "kind": "deduction-dimension",
+          "expected": "boundaryCoverage",
+          "actual": "assertionStrength, negativeCoverage, boundaryCoverage, observability",
+          "pass": true
+        }
+      ],
+      "evaluatedEngines": [
+        "quality"
+      ],
+      "context": {
+        "analyzedFiles": [
+          {
+            "filePath": "tests/pricing.test.ts",
+            "score": 58,
+            "testCount": 4
+          }
+        ],
+        "deductionDimensions": [
+          "assertionStrength",
+          "negativeCoverage",
+          "boundaryCoverage",
+          "observability"
+        ]
+      }
+    }
+  ]
+}

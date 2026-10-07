@@ -1,0 +1,94 @@
+# The-QA-Skill — pull-request QA pipeline (GitHub Actions).
+#
+# Copy into your repository as `.github/workflows/qa-pr.yml`.
+# Requires The-QA-Skill installed as a devDependency (it provides the `qa` CLI):
+#
+#   npm i -D the-qa-skill
+#
+# Pipeline shape:
+#   checkout (full history) -> node 20 -> npm ci -> qa doctor (advisory)
+#   -> qa impact --range "<base>..HEAD" --json  (artifact)
+#   -> qa test --policy pr
+#   -> upload .theqa/artifacts
+#   -> qa release --json gate: fails the job when verdict == BLOCKED (jq).
+#
+# Only documented commands and flags are used:
+#   qa doctor | qa impact --range <r> --json | qa test --policy pr | qa release --json
+# See `qa doctor` and the CLI docs for the full 16-command surface.
+
+name: QA (PR)
+
+on:
+  pull_request:
+    branches: ["main"]
+
+concurrency:
+  group: qa-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  # Adjust if your default branch is named differently.
+  QA_BASE_REF: origin/main
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout (full history — the impact range needs the base ref)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Prepare artifact directory
+        run: mkdir -p .theqa/artifacts
+
+      - name: QA doctor (advisory — warnings do not block the PR)
+        # `qa doctor` exits non-zero when it finds environment problems.
+        # This pipeline treats doctor as advisory: findings are visible in the
+        # log, but only the release gate below may fail the job.
+        continue-on-error: true
+        run: npx qa doctor
+
+      - name: QA impact for the PR range
+        run: |
+          npx qa impact --range "${QA_BASE_REF}..HEAD" --json > .theqa/artifacts/impact.json
+          echo "Impact analysis written to .theqa/artifacts/impact.json"
+
+      - name: Run the PR policy suite
+        run: npx qa test --policy pr
+
+      - name: Upload QA artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: theqa-artifacts
+          path: .theqa/artifacts
+          if-no-files-found: warn
+
+      - name: Release gate (fails the job when verdict == BLOCKED)
+        # `qa release --json` prints the documented ReleaseGateResult
+        # (verdict: PASS | PASS_WITH_WARNINGS | BLOCKED | FAIL | UNKNOWN).
+        # The jq fallback chain tolerates wrapped output shapes; anything the
+        # gate cannot state clearly reads as UNKNOWN and does not block.
+        run: |
+          npx qa release --json | tee .theqa/artifacts/release-gate.json
+          verdict="$(jq -r '.verdict // .data.verdict // "UNKNOWN"' .theqa/artifacts/release-gate.json)"
+          echo "Release gate verdict: ${verdict}"
+          case "${verdict}" in
+            BLOCKED)
+              echo "::error::The QA release gate returned BLOCKED — inspect the uploaded theqa-artifacts."
+              exit 1
+              ;;
+            *)
+              echo "Gate allows merge (verdict: ${verdict})."
+              ;;
+          esac

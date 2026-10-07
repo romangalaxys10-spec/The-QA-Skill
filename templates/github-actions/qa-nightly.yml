@@ -1,0 +1,83 @@
+# The-QA-Skill — nightly QA pipeline (GitHub Actions).
+#
+# Copy into your repository as `.github/workflows/qa-nightly.yml`.
+# Requires The-QA-Skill installed as a devDependency (it provides the `qa` CLI):
+#
+#   npm i -D the-qa-skill
+#
+# Nightly shape (broader, slower checks that must not sit on the PR path):
+#   qa test --policy nightly -> qa flake -> qa coverage -> artifact upload
+#   -> optional Slack notify (EXPLICIT OPT-IN, see the step comment).
+#
+# Only documented commands are used: qa test --policy, qa flake, qa coverage,
+# qa report. Full 16-command surface: see the CLI docs / `qa doctor`.
+
+name: QA (nightly)
+
+on:
+  schedule:
+    # 02:30 UTC daily — move to your repository's low-traffic window.
+    - cron: "30 2 * * *"
+  workflow_dispatch:
+
+jobs:
+  nightly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Prepare artifact directory
+        run: mkdir -p .theqa/artifacts
+
+      - name: Run the nightly policy suite
+        run: npx qa test --policy nightly
+
+      - name: Flake intelligence
+        run: npx qa flake | tee .theqa/artifacts/flake-report.txt
+
+      - name: Coverage analysis
+        run: npx qa coverage | tee .theqa/artifacts/coverage-report.txt
+
+      - name: Quality report
+        run: npx qa report | tee .theqa/artifacts/quality-report.txt
+
+      - name: Upload QA artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: theqa-nightly-artifacts
+          path: .theqa/artifacts
+          if-no-files-found: warn
+
+      # ---------------------------------------------------------------------
+      # EXPLICIT OPT-IN — external-system side effect.
+      #
+      # Posting to Slack sends your CI result data to an external system.
+      # In The-QA-Skill's safety model this is the same class of action as
+      # `external.systems`: HIGH_RISK, never enabled by default, never run
+      # without explicit configuration. This step only fires when the
+      # SLACK_WEBHOOK_URL repository secret is set — leave the secret unset
+      # to keep the nightly fully local. To opt in:
+      #   repo Settings -> Secrets and variables -> Actions
+      #   -> New repository secret: SLACK_WEBHOOK_URL = <your webhook URL>
+      # ---------------------------------------------------------------------
+      - name: Notify Slack (optional, explicit opt-in)
+        if: ${{ env.SLACK_WEBHOOK_URL != '' }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          jq -n --arg text "Nightly QA finished for ${GITHUB_REPOSITORY} — run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" \
+            '{text: $text}' \
+            | curl -sf -X POST -H 'Content-type: application/json' --data @- "${SLACK_WEBHOOK_URL}"

@@ -1,0 +1,106 @@
+# The-QA-Skill — Azure DevOps pipeline template.
+#
+# Copy into your repository as `azure-pipelines.yml`.
+# Requires The-QA-Skill installed as a devDependency (it provides the `qa` CLI):
+#
+#   npm i -D the-qa-skill
+#
+# Behavior:
+#   - PR / CI builds: doctor (advisory) -> impact -> test --policy pr -> gate.
+#   - Scheduled nightly builds: test --policy nightly -> flake + coverage.
+# Artifacts from .theqa/artifacts are always published; the gate is the only
+# step allowed to fail the run on quality grounds.
+#
+# Documented commands only: qa doctor | qa impact --range <r> --json |
+# qa test --policy | qa flake | qa coverage | qa release --json.
+
+schedules:
+  - cron: "30 2 * * *"
+    displayName: Nightly QA
+    branches:
+      include:
+        - main
+    always: false
+
+trigger:
+  branches:
+    include:
+      - main
+
+pr:
+  branches:
+    include:
+      - main
+
+variables:
+  # Adjust if your default branch is named differently.
+  QA_BASE_REF: origin/main
+  # PR/CI builds use the pr policy; scheduled builds escalate to nightly.
+  ${{ if eq(variables['Build.Reason'], 'Schedule') }}:
+    QA_POLICY: nightly
+  ${{ if ne(variables['Build.Reason'], 'Schedule') }}:
+    QA_POLICY: pr
+
+stages:
+  - stage: QA
+    displayName: The-QA-Skill
+    jobs:
+      - job: qa
+        pool:
+          vmImage: ubuntu-latest
+        timeoutInMinutes: 45
+        steps:
+          - checkout: self
+            fetchDepth: 0
+
+          - task: NodeTool@0
+            displayName: Setup Node 20
+            inputs:
+              versionSpec: '20.x'
+
+          - script: npm ci --no-audit --no-fund
+            displayName: Install dependencies
+
+          - script: |
+              mkdir -p .theqa/artifacts
+              npx qa doctor
+            displayName: QA doctor (advisory — findings do not fail the run)
+            continueOnError: true
+
+          - script: |
+              npx qa impact --range "$(QA_BASE_REF)..HEAD" --json > .theqa/artifacts/impact.json
+            displayName: QA impact
+            condition: and(succeeded(), ne(variables['Build.Reason'], 'Schedule'))
+
+          - script: npx qa test --policy $(QA_POLICY)
+            displayName: QA test ($(QA_POLICY) policy)
+
+          - script: |
+              npx qa flake | tee .theqa/artifacts/flake-report.txt
+              npx qa coverage | tee .theqa/artifacts/coverage-report.txt
+            displayName: QA flake + coverage (nightly only)
+            condition: eq(variables['Build.Reason'], 'Schedule')
+
+          - task: PublishPipelineArtifact@1
+            displayName: Publish .theqa artifacts
+            condition: succeededOrFailed()
+            inputs:
+              targetPath: '$(Build.SourcesDirectory)/.theqa/artifacts'
+              artifact: theqa-artifacts
+
+          # ReleaseGateResult verdict: PASS | PASS_WITH_WARNINGS | BLOCKED | FAIL | UNKNOWN.
+          - script: |
+              set -e
+              npx qa release --json | tee .theqa/artifacts/release-gate.json
+              verdict="$(jq -r '.verdict // .data.verdict // "UNKNOWN"' .theqa/artifacts/release-gate.json)"
+              echo "Release gate verdict: ${verdict}"
+              case "${verdict}" in
+                BLOCKED)
+                  echo "##vso[task.logissue type=error]QA release gate BLOCKED — inspect the theqa-artifacts artifact."
+                  exit 1
+                  ;;
+                *)
+                  echo "Gate allows promotion (verdict: ${verdict})"
+                  ;;
+              esac
+            displayName: Release gate (fails when verdict == BLOCKED)

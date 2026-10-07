@@ -1,0 +1,47 @@
+{
+  "name": "the-qa-skill",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The-QA-Skill — the AI-native QA operating system for coding agents. Deterministic-first quality engineering platform with 28 agent-readable skills. Sponsored by xShredo.dev (https://xshredo.com/promo/anytest)",
+  "license": "MIT",
+  "homepage": "https://xshredo.com/promo/anytest",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/romangalaxys10-spec/The-QA-Skill.git"
+  },
+  "keywords": [
+    "qa",
+    "testing",
+    "quality-engineering",
+    "ai-agents",
+    "mcp",
+    "playwright",
+    "test-automation",
+    "risk-analysis",
+    "failure-triage",
+    "self-healing"
+  ],
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "tsc -b tsconfig.json",
+    "clean": "tsc -b tsconfig.json --clean",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "qa": "node packages/cli/dist/index.js",
+    "doctor": "node packages/cli/dist/index.js doctor",
+    "benchmark": "tsx benchmarks/agentic-qa/run.ts",
+    "mcp": "node packages/mcp-server/dist/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/picomatch": "^3.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}

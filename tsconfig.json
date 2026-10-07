@@ -1,0 +1,15 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/core" },
+    { "path": "packages/graph" },
+    { "path": "packages/data" },
+    { "path": "packages/reasoning" },
+    { "path": "packages/healing" },
+    { "path": "packages/runners" },
+    { "path": "packages/reporting" },
+    { "path": "packages/agents" },
+    { "path": "packages/mcp-server" },
+    { "path": "packages/cli" }
+  ]
+}

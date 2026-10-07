@@ -1,0 +1,129 @@
+// The-QA-Skill — Jenkins declarative pipeline template.
+//
+// Copy into your repository as `Jenkinsfile`.
+// Requires The-QA-Skill installed as a devDependency (it provides the `qa` CLI):
+//
+//   npm i -D the-qa-skill
+//
+// Stages: Checkout -> Install -> QA doctor (advisory) -> QA impact -> QA test
+//         -> Release gate (fails the stage when verdict == BLOCKED).
+// post: always publishes JUnit reports from .theqa artifacts and archives them.
+// Slack notification is an EXPLICIT OPT-IN (boolean parameter) and reads its
+// webhook from the Jenkins credential store — never a plain-text variable.
+//
+// Documented commands only: qa doctor | qa impact --range <r> --json |
+// qa test --policy pr | qa release --json. Full 16-command surface: CLI docs.
+
+pipeline {
+    agent any
+
+    options {
+        timestamps()
+        // Nightly-class suites can be slow; bound every run.
+        timeout(time: 45, unit: 'MINUTES')
+        buildDiscarder(logRotator(numToKeepStr: '30'))
+    }
+
+    environment {
+        CI = 'true'
+        // Adjust if your default branch is named differently.
+        QA_BASE_REF = 'origin/main'
+    }
+
+    parameters {
+        booleanParam(
+            name: 'NOTIFY_SLACK',
+            defaultValue: false,
+            description: 'EXPLICIT OPT-IN: post the gate verdict to Slack (external-system side effect). Requires credential qa-slack-webhook-url.'
+        )
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Install') {
+            steps {
+                sh 'npm ci --no-audit --no-fund'
+            }
+        }
+
+        stage('QA doctor (advisory)') {
+            steps {
+                script {
+                    // Advisory: findings are logged, never fail the build.
+                    def status = sh(
+                        returnStatus: true,
+                        script: 'npx qa doctor'
+                    )
+                    echo "qa doctor exit code: ${status} (advisory — does not fail the build)"
+                }
+            }
+        }
+
+        stage('QA impact') {
+            steps {
+                sh 'mkdir -p .theqa/artifacts'
+                // CHANGE_TARGET is set on PR builds; fall back to the base ref.
+                sh '''
+                    if [ -n "${CHANGE_TARGET:-}" ]; then
+                        QA_RANGE="origin/${CHANGE_TARGET}..HEAD"
+                    else
+                        QA_RANGE="${QA_BASE_REF}..HEAD"
+                    fi
+                    npx qa impact --range "${QA_RANGE}" --json > .theqa/artifacts/impact.json
+                '''
+            }
+        }
+
+        stage('QA test') {
+            steps {
+                sh 'npx qa test --policy pr'
+            }
+        }
+
+        stage('Release gate') {
+            steps {
+                // ReleaseGateResult verdict: PASS | PASS_WITH_WARNINGS | BLOCKED | FAIL | UNKNOWN.
+                sh '''
+                    npx qa release --json | tee .theqa/artifacts/release-gate.json
+                    verdict="$(jq -r '.verdict // .data.verdict // "UNKNOWN"' .theqa/artifacts/release-gate.json)"
+                    echo "Release gate verdict: ${verdict}"
+                    case "${verdict}" in
+                        BLOCKED)
+                            echo "QA release gate BLOCKED — inspect .theqa/artifacts/release-gate.json"
+                            exit 1
+                            ;;
+                        *)
+                            echo "Gate allows promotion (verdict: ${verdict})"
+                            ;;
+                    esac
+                '''
+            }
+        }
+    }
+
+    post {
+        always {
+            // Publish JUnit XML produced into .theqa artifacts (runner output).
+            // allowEmptyResults keeps pipelines honest when the run produced
+            // no JUnit files instead of failing on the absence of evidence.
+            junit allowEmptyResults: true, testResults: '.theqa/artifacts/**/*.xml'
+            archiveArtifacts artifacts: '.theqa/artifacts/**', allowEmptyArchive: true, fingerprint: true
+        }
+        failure {
+            script {
+                if (params.NOTIFY_SLACK) {
+                    withCredentials([string(credentialsId: 'qa-slack-webhook-url', variable: 'SLACK_WEBHOOK_URL')]) {
+                        sh 'curl -sf -X POST -H "Content-type: application/json" -d "{\\"text\\":\\"QA release gate BLOCKED: $BUILD_URL\\"}" "$SLACK_WEBHOOK_URL"'
+                    }
+                } else {
+                    echo 'Slack notification skipped (NOTIFY_SLACK not opted in).'
+                }
+            }
+        }
+    }
+}

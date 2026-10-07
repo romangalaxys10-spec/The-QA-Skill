@@ -1,0 +1,23 @@
+{
+  "name": "@the-qa-skill/runners",
+  "version": "0.1.0",
+  "description": "Test framework runners: Playwright, Vitest/Jest, pytest, k6, ZAP, Appium adapters + parsers",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/romangalaxys10-spec/The-QA-Skill.git",
+    "directory": "packages/runners"
+  },
+  "homepage": "https://xshredo.com/promo/anytest",
+  "dependencies": {
+    "@the-qa-skill/core": "^0.1.0"
+  }
+}

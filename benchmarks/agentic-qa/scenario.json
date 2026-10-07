@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "name": "agentic-qa",
+  "description": "Static index of the benchmark corpus: fixture name -> engine declared in fixtures/<name>/EXPECTED.md. run.ts derives everything live from EXPECTED.md; this manifest is a convenience index for tooling, not an input.",
+  "corpus": [
+    { "fixture": "a11y-regression", "engine": "triage" },
+    { "fixture": "api-regression", "engine": "triage" },
+    { "fixture": "auth-bug", "engine": "triage" },
+    { "fixture": "db-regression", "engine": "triage" },
+    { "fixture": "false-negative", "engine": "quality" },
+    { "fixture": "false-positive", "engine": "quality" },
+    { "fixture": "flaky-test", "engine": "triage" },
+    { "fixture": "missing-coverage", "engine": "coverage" },
+    { "fixture": "payment-regression", "engine": "risk" },
+    { "fixture": "race-condition", "engine": "triage" },
+    { "fixture": "selector-change", "engine": "triage" },
+    { "fixture": "visual-regression", "engine": "triage" },
+    { "fixture": "weak-assertion", "engine": "quality" }
+  ]
+}

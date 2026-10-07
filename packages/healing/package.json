@@ -1,0 +1,27 @@
+{
+  "name": "@the-qa-skill/healing",
+  "version": "0.1.0",
+  "description": "Confidence-tiered self-healing with golden-rule policy enforcement",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/romangalaxys10-spec/The-QA-Skill.git",
+    "directory": "packages/healing"
+  },
+  "homepage": "https://xshredo.com/promo/anytest",
+  "dependencies": {
+    "@the-qa-skill/runners": "^0.1.0",
+    "@the-qa-skill/reporting": "^0.1.0",
+    "@the-qa-skill/agents": "^0.1.0",
+    "@the-qa-skill/mcp-server": "^0.1.0",
+    "@the-qa-skill/cli": "^0.1.0"
+  }
+}

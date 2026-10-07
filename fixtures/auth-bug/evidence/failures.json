@@ -1,0 +1,32 @@
+[
+  {
+    "testId": "tests/auth.spec.ts::keeps a remembered device session valid for the full 7 day window",
+    "name": "keeps a remembered device session valid for the full 7 day window",
+    "filePath": "tests/auth.spec.ts",
+    "layer": "integration",
+    "attempts": [
+      {
+        "status": "failed",
+        "durationMs": 3184,
+        "timestamp": "2026-10-05T08:41:07.412Z",
+        "environment": "ci-runner-eu1-04",
+        "errorType": "AssertionError",
+        "errorMessage": "expected 401 to equal 200",
+        "errorStack": "AssertionError: expected 401 to equal 200\n    at /home/ci/agent-04/workspace/ledgerdesk/tests/auth.spec.ts:21:31\n    at tests/helpers/test-app.ts:22:19\n    at app/http/auth-middleware.ts:27:20\n    at app/lib/session.ts:48:11\n    at async Promise.all (index 0)\n    at ~/work/ledgerdesk/node_modules/vitest/dist/chunks/run-CdG8kR3n.js:11802:11"
+      },
+      {
+        "status": "failed",
+        "durationMs": 3390,
+        "timestamp": "2026-10-05T08:41:19.807Z",
+        "environment": "ci-runner-eu1-04",
+        "errorType": "AssertionError",
+        "errorMessage": "expected 401 to equal 200",
+        "errorStack": "AssertionError: expected 401 to equal 200\n    at /home/ci/agent-04/workspace/ledgerdesk/tests/auth.spec.ts:21:31\n    at tests/helpers/test-app.ts:22:19\n    at app/http/auth-middleware.ts:27:20\n    at app/lib/session.ts:48:11\n    at ~/work/ledgerdesk/node_modules/vitest/dist/chunks/run-CdG8kR3n.js:11802:11"
+      }
+    ],
+    "changedFiles": ["app/lib/session.ts"],
+    "networkVerified": true,
+    "domVerified": true,
+    "recentRuns": ["passed", "passed", "passed", "passed"]
+  }
+]

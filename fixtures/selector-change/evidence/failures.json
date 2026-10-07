@@ -1,0 +1,34 @@
+[
+  {
+    "testId": "tests/checkout.spec.ts::places an order from the review panel",
+    "name": "places an order from the review panel",
+    "filePath": "tests/checkout.spec.ts",
+    "layer": "e2e",
+    "attempts": [
+      {
+        "status": "failed",
+        "durationMs": 30441,
+        "timestamp": "2026-10-03T14:02:11.556Z",
+        "environment": "ci-runner-eu1-02",
+        "browser": "chromium-133.0.6943.16",
+        "errorType": "TimeoutError",
+        "errorMessage": "locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for getByTestId('submit-order')\n",
+        "errorStack": "TimeoutError: locator.click: Timeout 30000ms exceeded.\n    at CheckoutPage.submit (~/work/cratecart/tests/helpers/checkout.page.ts:32:22)\n    at /home/ci/agent-02/workspace/cratecart/tests/checkout.spec.ts:12:34\n    at /home/ci/agent-02/workspace/cratecart/node_modules/playwright/lib/client/locator.js:96:23\n    at ~/work/cratecart/node_modules/playwright/lib/client/frame.js:77:11"
+      },
+      {
+        "status": "failed",
+        "durationMs": 30219,
+        "timestamp": "2026-10-03T14:02:52.330Z",
+        "environment": "ci-runner-eu1-02",
+        "browser": "chromium-133.0.6943.16",
+        "errorType": "TimeoutError",
+        "errorMessage": "locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for getByTestId('submit-order')\n",
+        "errorStack": "TimeoutError: locator.click: Timeout 30000ms exceeded.\n    at CheckoutPage.submit (~/work/cratecart/tests/helpers/checkout.page.ts:32:22)\n    at /home/ci/agent-02/workspace/cratecart/tests/checkout.spec.ts:12:34\n    at /home/ci/agent-02/workspace/cratecart/node_modules/playwright/lib/client/locator.js:96:23"
+      }
+    ],
+    "changedFiles": ["app/ui/checkout.tsx"],
+    "networkVerified": true,
+    "domVerified": true,
+    "recentRuns": ["passed", "passed", "passed", "passed", "passed"]
+  }
+]

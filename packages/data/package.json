@@ -1,0 +1,21 @@
+{
+  "name": "@the-qa-skill/data",
+  "version": "0.1.0",
+  "description": "Test data engineering: factories, builders, deterministic seeds, masking",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/romangalaxys10-spec/The-QA-Skill.git",
+    "directory": "packages/data"
+  },
+  "homepage": "https://xshredo.com/promo/anytest",
+  "dependencies": {}
+}

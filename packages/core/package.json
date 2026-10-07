@@ -1,0 +1,36 @@
+{
+  "name": "@the-qa-skill/core",
+  "version": "0.1.0",
+  "description": "Deterministic QA engine: context model, risk, impact, triage, flake, quality, healing policy, evidence, lifecycle",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/romangalaxys10-spec/The-QA-Skill.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://xshredo.com/promo/anytest",
+  "dependencies": {
+    "@the-qa-skill/graph": "^0.1.0",
+    "@the-qa-skill/data": "^0.1.0",
+    "@the-qa-skill/reasoning": "^0.1.0",
+    "@the-qa-skill/healing": "^0.1.0",
+    "@the-qa-skill/runners": "^0.1.0",
+    "@the-qa-skill/reporting": "^0.1.0",
+    "@the-qa-skill/agents": "^0.1.0",
+    "@the-qa-skill/mcp-server": "^0.1.0",
+    "@the-qa-skill/cli": "^0.1.0",
+    "zod": "^3.24.0",
+    "picomatch": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/picomatch": "^3.0.0"
+  }
+}

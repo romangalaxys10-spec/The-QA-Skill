@@ -1,0 +1,23 @@
+{
+  "name": "@the-qa-skill/agents",
+  "version": "0.1.0",
+  "description": "8 specialized QA agents + lifecycle orchestrator: discovery, requirements, risk, generation, review, execution, triage, healing",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/romangalaxys10-spec/The-QA-Skill.git",
+    "directory": "packages/agents"
+  },
+  "homepage": "https://xshredo.com/promo/anytest",
+  "dependencies": {
+    "@the-qa-skill/core": "^0.1.0"
+  }
+}

@@ -1,0 +1,5 @@
+# Expected
+- engine: triage
+- expect_category: FLAKE
+- expect_min_confidence: 0.85
+- notes: Attempt 1 failed with Playwright's per-test timeout ("Test timeout of 30000ms exceeded", a timeout-shaped error) and attempt 2 passed, so passAfterRetry=true. changedFiles is empty — the run had no product change in this test's import closure (dashboard.spec.ts -> kpi-page.ts -> app/web/dashboard.tsx, none changed) — and recentRuns are passed,failed,passed, which makes intermittentHistory=true. Walking classifyFailure in order: no dependency pattern; no config pattern; no selector pattern (the stack deliberately contains no TimeoutError/locator/waitFor/getBy/waiting-for strings, because a "page.waitForSelector" phrasing would match SELECTOR_PATTERNS and misroute to TIMING_FAILURE at 0.7); no env or network patterns; no data pattern. Rule 7 (timing) is reached but its documented exception applies — a timeout that passed on retry, covers no changed code, and has intermittent history — so rule 8 (FLAKE) fires at confidence 0.88 with all three supporting signals. The engine's own documented confidence for this shape is 0.88, above the 0.85 floor.

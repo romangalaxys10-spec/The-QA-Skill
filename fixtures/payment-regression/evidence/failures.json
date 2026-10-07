@@ -1,0 +1,32 @@
+[
+  {
+    "testId": "tests/charge.spec.ts::captures exactly once when the first attempt times out client-side",
+    "name": "captures exactly once when the first attempt times out client-side",
+    "filePath": "tests/charge.spec.ts",
+    "layer": "integration",
+    "attempts": [
+      {
+        "status": "failed",
+        "durationMs": 2418,
+        "timestamp": "2026-10-06T07:18:55.470Z",
+        "environment": "ci-runner-eu1-06",
+        "errorType": "AssertionError",
+        "errorMessage": "expected 2 to equal 1",
+        "errorStack": "AssertionError: expected 2 to equal 1\n    at /home/ci/agent-06/workspace/tapcharge/tests/charge.spec.ts:17:28\n    at app/payments/charge.ts:41:19\n    at tests/helpers/fake-processor.ts:24:15\n    at async Promise.all (index 0)\n    at ~/work/tapcharge/node_modules/vitest/dist/chunks/run-CdG8kR3n.js:11802:11"
+      },
+      {
+        "status": "failed",
+        "durationMs": 2355,
+        "timestamp": "2026-10-06T07:19:04.118Z",
+        "environment": "ci-runner-eu1-06",
+        "errorType": "AssertionError",
+        "errorMessage": "expected 2 to equal 1",
+        "errorStack": "AssertionError: expected 2 to equal 1\n    at /home/ci/agent-06/workspace/tapcharge/tests/charge.spec.ts:17:28\n    at app/payments/charge.ts:41:19\n    at ~/work/tapcharge/node_modules/vitest/dist/chunks/run-CdG8kR3n.js:11802:11"
+      }
+    ],
+    "changedFiles": ["app/payments/charge.ts"],
+    "networkVerified": true,
+    "domVerified": false,
+    "recentRuns": ["passed", "passed", "passed", "passed", "passed", "passed"]
+  }
+]

@@ -1,0 +1,90 @@
+# The-QA-Skill — this repository's own CI.
+#
+# What this pipeline does (and does not) claim:
+# - build + test the packages on Node 20 and 22,
+# - run the CLI's doctor self-check against the built output (non-blocking:
+#   the CLI surface is under construction, so failures are tolerated while
+#   development continues — this step produces no quality metrics),
+# - validate the fixture corpus structure (scripts/validate-fixtures.js),
+# - on main: run the agentic-qa benchmark and upload its measured results
+#   (results.json / results.md) as an artifact. The benchmark measures the
+#   deterministic engines against the fixtures; it does not gate merges.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-test:
+    name: build + test (node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test
+
+      - name: Doctor self-check (non-blocking)
+        # Runs against the build output, hence after `npm run build`.
+        # `|| true` is deliberate: while the CLI is being built out this
+        # self-check is a placeholder and must not fail CI.
+        run: node packages/cli/dist/index.js doctor || true
+
+      - name: Validate fixture corpus
+        run: node scripts/validate-fixtures.js
+
+  benchmark:
+    name: agentic-qa benchmark (main)
+    needs: build-test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run benchmark
+        # Measured on the fixtures of this repo with the deterministic engines;
+        # exit code 0 even when fixture expectations fail (failures are data).
+        run: npm run benchmark
+
+      - name: Upload benchmark results
+        uses: actions/upload-artifact@v4
+        with:
+          name: agentic-qa-results
+          path: |
+            benchmarks/agentic-qa/results.json
+            benchmarks/agentic-qa/results.md
+          if-no-files-found: error

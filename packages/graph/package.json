@@ -1,0 +1,23 @@
+{
+  "name": "@the-qa-skill/graph",
+  "version": "0.1.0",
+  "description": "Quality Graph: Requirement-Feature-Code-Test-Defect traceability",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/romangalaxys10-spec/The-QA-Skill.git",
+    "directory": "packages/graph"
+  },
+  "homepage": "https://xshredo.com/promo/anytest",
+  "dependencies": {
+    "@the-qa-skill/core": "^0.1.0"
+  }
+}
