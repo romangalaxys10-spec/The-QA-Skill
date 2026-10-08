@@ -30,3 +30,6 @@ npm-debug.log*
 
 # Benchmark scratch
 benchmarks/agentic-qa/.tmp/
+
+# xRouteLM local decision/route journals (runtime data)
+.xroutelm/
