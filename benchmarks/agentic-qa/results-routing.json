@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "tool": "xroutelm-routing-benchmark",
+  "generatedAt": "2026-10-08T10:18:59.722Z",
+  "disclaimer": "Measured with the xRouteLM heuristic scorer over defaultTargets(). No LLM, no network. Reproducible via npm run benchmark.",
+  "total": 12,
+  "passed": 12,
+  "accuracy": 100,
+  "meanConfidence": 0.869,
+  "meanRuntimeMs": 0.58,
+  "results": [
+    {
+      "task": "tests fail intermittently on retry without any code change",
+      "expect": "qa-flake-detection",
+      "actual": "qa-flake-detection",
+      "confidence": 0.428,
+      "top3": [
+        "qa-flake-detection",
+        "qa-impact-analysis",
+        "qa-risk-analysis"
+      ],
+      "pass": true,
+      "durationMs": 3
+    },
+    {
+      "task": "payment total is wrong after applying a discount coupon at checkout",
+      "expect": "qa-risk-analysis",
+      "actual": "qa-risk-analysis",
+      "confidence": 0.97,
+      "top3": [
+        "qa-risk-analysis",
+        "qa-failure-triage",
+        "qa-enterprise"
+      ],
+      "pass": true,
+      "durationMs": 0
+    },
+    {
+      "task": "fix the deadlock between the worker queue and the rate limiter",
+      "expect": "qa-risk-analysis",
+      "actual": "qa-risk-analysis",
+      "confidence": 0.97,
+      "top3": [
+        "qa-risk-analysis",
+        "qa-test-healing",
+        "qa-enterprise"
+      ],
+      "pass": true,
+      "durationMs": 0
+    },
+    {
+      "task": "select the smallest test set for this pull request diff",
+      "expect": "qa-impact-analysis",
+      "actual": "qa-impact-analysis",
+      "confidence": 0.97,
+      "top3": [
+        "qa-impact-analysis",
+        "qa-enterprise",
+        "qa-failure-triage"
+      ],
+      "pass": true,
+      "durationMs": 1
+    },
+    {
+      "task": "the login locator broke after the navbar redesign and the test cannot find the button",
+      "expect": "qa-test-healing",
+      "actual": "qa-test-healing",
+      "confidence": 0.297,
+      "top3": [
+        "qa-test-healing",
+        "qa-failure-triage",
+        "qa-test-generation"
+      ],
+      "pass": true,
+      "durationMs": 0
+    },
+    {
+      "task": "87 tests failed in the nightly run, cluster them and find the primary root cause",
+      "expect": "qa-failure-triage",
+      "actual": "qa-failure-triage",
+      "confidence": 0.97,
+      "top3": [
+        "qa-failure-triage",
+        "qa-flake-detection",
+        "qa-impact-analysis"
+      ],
+      "pass": true,
+      "durationMs": 0
+    },
+    {
+      "task": "generate test cases for the new refund feature spec",
+      "expect": "qa-test-generation",
+      "actual": "qa-test-generation",
+      "confidence": 0.97,
+      "top3": [
+        "qa-test-generation",
+        "qa-risk-analysis",
+        "qa-impact-analysis"
+      ],
+      "pass": true,
+      "durationMs": 1
+    },
+    {
+      "task": "decide whether release 2.4.0 can ship to production",
+      "expect": "qa-release-gate",
+      "actual": "qa-release-gate",
+      "confidence": 0.97,
+      "top3": [
+        "qa-release-gate",
+        "qa-enterprise",
+        "qa-impact-analysis"
+      ],
+      "pass": true,
+      "durationMs": 1
+    },
+    {
+      "task": "run the full QA lifecycle for this repository before the release",
+      "expect": "qa-enterprise",
+      "actual": "qa-enterprise",
+      "confidence": 0.97,
+      "top3": [
+        "qa-enterprise",
+        "qa-release-gate",
+        "qa-flake-detection"
+      ],
+      "pass": true,
+      "durationMs": 0
+    },
+    {
+      "task": "score how risky this database migration change is",
+      "expect": "qa-risk-analysis",
+      "actual": "qa-risk-analysis",
+      "confidence": 0.97,
+      "top3": [
+        "qa-risk-analysis",
+        "qa-flake-detection",
+        "qa-impact-analysis"
+      ],
+      "pass": true,
+      "durationMs": 0
+    },
+    {
+      "task": "this element is not found sometimes when the page loads slowly",
+      "expect": "qa-flake-detection",
+      "actual": "qa-flake-detection",
+      "confidence": 0.97,
+      "top3": [
+        "qa-flake-detection",
+        "qa-enterprise",
+        "qa-impact-analysis"
+      ],
+      "pass": true,
+      "durationMs": 0
+    },
+    {
+      "task": "which tests cover the changed session module in this commit",
+      "expect": "qa-impact-analysis",
+      "actual": "qa-impact-analysis",
+      "confidence": 0.97,
+      "top3": [
+        "qa-impact-analysis",
+        "qa-flake-detection",
+        "qa-test-healing"
+      ],
+      "pass": true,
+      "durationMs": 1
+    }
+  ]
+}

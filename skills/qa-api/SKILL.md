@@ -2,6 +2,7 @@
 name: qa-api
 description: API-layer test design and triage for the 'api' layer — positive/negative/boundary coverage per endpoint, status-code discipline, auth-token hygiene, and async verification patterns. API tests are the pyramid's highest-signal layer for business logic, so this skill enforces the API-first policy and explains how endpoint failures cluster into cascades.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]

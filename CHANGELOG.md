@@ -2,6 +2,28 @@
 
 All notable changes to The-QA-Skill are documented here. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning: [Semantic Versioning](https://semver.org/). Machine outputs (`--json`) carry `schemaVersion`; additive tool/command changes are minor, breaking contract changes are major.
 
+## [0.2.0] — 2026-10-08
+
+### Added
+- **xRouteLM — the portable System One decision engine (`packages/xroutelm`)**: Jev-compatible question semantics (choice / score / noul) with calibrated probabilities and recorded evidence; plugin scorer pipeline — `xroutelm/heuristic` (always available, zero dependencies) plus a feature-detected `xroutelm/laya-bridge` that reports honest unavailability off macOS/Apple Silicon; `SystemOneHarness` for agent-loop gating and fast-vs-powerful model routing; JSONL decision journal; `RouteStats` success-rate learning (≥5 samples, <0.3 demote / ≥0.7 promote, never silent); `xroutelm.plugin.json` manifest discovery with visible errors. Runs anywhere Laya cannot, without needing Jev.
+- **`qa route`** — task routing over xRouteLM (default QA targets + plugin targets + learning); **`xroutelm` bin** (`decide`, `route`, `doctor`, `plugins list`).
+- **Ground-truth verification (`qa verify` + core verify engine)**: claim → deterministic probes (file_exists, dir_exists, file_contains, file_not_contains, json_valid, cmd_exit_zero, git_ref_exists, http_status) → VERIFIED / REFUTED / UNKNOWN. Probe errors are UNKNOWN, never refutations. `--repeat` upgrades agreeing runs to CONFIRMED. REFUTED claims are recorded in the persistent KNOWN_FALSE registry (`.theqa/known-false.json`) banning silent retries. `verify_claim` MCP tool.
+- **Mechanical golden-rule audits (`qa audit-rules` + core rules engine)**: the enforceable subset of the 15 rules (sleep discipline, retry masking, evidence-backed CONFIRMED, pyramid budget, secret patterns, seeds, explainability, categorization) evaluated over any payload; inapplicable rules report `applicable: false` — honest inapplicability instead of fake passes.
+- **Traceability matrix (`qa matrix`)**: requirement→test records (`.theqa/matrix.json`) rendered with per-requirement confidence (CONFIRMED / OBSERVED / NOT_RUN / GAP) and honest empty-state instructions.
+- **Token-efficiency module (`qa tokens` + core DTOC)**: documented caps (ls 20 · logs 30 · diff 100 · config 80 · search 40), tail-keeping for logs/search, visible truncation markers, chars/4 token-savings estimates; `skills/token-efficiency` codifies AST-first reading, progressive disclosure, session cache, and six-field subagent scoping.
+- **MCP catalog grows to 13 tools**: `verify_claim` and `route_task` join the 11 existing tools.
+- **Claude plugin packaging**: `.claude-plugin/plugin.json` + `marketplace.json`, SessionEnd hook (`hooks/hooks.json` → draft session records, secret-free by construction).
+- **Skill-contract linter (`scripts/lint-skills.mjs`)**: enforces the 13-section contract, frontmatter schema, 120-line content floor for qa-* skills, and a machine-readable schema block per skill — 30/30 skills pass.
+- **Documentation drift linter (`scripts/lint-docs.mjs`)**: every `qa <cmd>` reference in docs/skills must name a real command; every doc must anchor to real packages/commands/benchmarks; benchmark claims must match results.json.
+- **xRouteLM routing benchmark (`benchmarks/agentic-qa/run-routing.ts` + `routing.json`)**: 12 routing expectations measured against the exact `qa route` engine — first run 12/12 (100%), mean confidence 0.87; results in `results-routing.json`/`results-routing.md`; wired into `npm run benchmark` and CI.
+- **docs/xroutelm.md** — design, semantics, plugin system, honesty contract, and the Laya/Jev relationship.
+
+### Fixed
+- CI `on.push.branches` YAML bug (`branches: ain]` parsed as a branch literally named "ain]" — main-branch pushes never ran CI); doctor self-check now uses visible `continue-on-error` instead of `|| true`; linters added as blocking CI steps.
+- All 28 skills: `license: MIT` added to frontmatter; bindings updated to the 21-command/13-tool surface; qa-enterprise output contract now includes the machine envelope schema.
+
+### Changed
+- CLI surface 16 → 21 commands; MCP catalog 11 → 13 tools; skills 28 → 30.
 ## [0.1.0] — 2026-10-07
 
 ### Added

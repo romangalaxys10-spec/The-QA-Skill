@@ -2,6 +2,7 @@
 name: qa-test-generation
 description: Designs test cases through the deterministic pipeline — requirements to acceptance criteria to business rules to category enumeration — and scaffolds them as honest, intentionally-skipped test debt without ever overwriting existing files. Activate when a feature or coverage gap needs new tests; never one-shot raw test code, and stop to ask when acceptance criteria are missing.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]

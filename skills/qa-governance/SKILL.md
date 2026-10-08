@@ -2,6 +2,7 @@
 name: qa-governance
 description: Governs what the platform and its agents may do — the ACTION_POLICIES safety registry, confirmation gates for HIGH_RISK actions, audit trails in the append-only learning store, and PII/secret handling at every enforcement point. Also owns adapter discipline against vendor lock-in, compliance mapping, and cost governance starting from the deterministic-by-default provider.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]

@@ -30,8 +30,9 @@ export interface ParsedArgs {
   command: string | undefined;
   /** Positional arguments after the command name. */
   positionals: string[];
-  /** Flag map: boolean flags map to `true`, value flags to their string value. */
-  flags: Record<string, string | boolean>;
+  /** Flag map: boolean flags map to `true`, value flags to their string value,
+   *  repeatable value flags (see REPEATABLE_VALUE_FLAGS) to a string array. */
+  flags: Record<string, string | boolean | string[]>;
 }
 
 /** A flag accepted by a command. `value: true` means `--flag <value>` is required. */
@@ -63,8 +64,11 @@ const VALUE_FLAG_DEFAULTS: ReadonlySet<string> = new Set([
 interface RawParse {
   command: string | undefined;
   positionals: string[];
-  flags: Record<string, string | boolean>;
+  flags: Record<string, string | boolean | string[]>;
 }
+
+/** Value flags that may be given multiple times; values accumulate in order. */
+const REPEATABLE_VALUE_FLAGS: ReadonlySet<string> = new Set(['check', 'q']);
 
 /**
  * Tokenize argv. Value-flag resolution needs the command's flag table, so the
@@ -73,7 +77,7 @@ interface RawParse {
  */
 function tokenize(argv: string[], valueFlags: ReadonlySet<string>): RawParse {
   const positionals: string[] = [];
-  const flags: Record<string, string | boolean> = {};
+  const flags: Record<string, string | boolean | string[]> = {};
   let command: string | undefined;
   let onlyPositionals = false;
 
@@ -101,7 +105,15 @@ function tokenize(argv: string[], valueFlags: ReadonlySet<string>): RawParse {
           if (next === undefined || next.startsWith('--')) {
             throw new UsageError(`flag --${name} requires a value`, `use --${name} <value> or --${name}=<value>`);
           }
-          flags[name] = next;
+          // Repeatable value flags (e.g. `qa verify --check … --check …`)
+          // accumulate into a string[]; single-value flags keep last-wins.
+          if (REPEATABLE_VALUE_FLAGS.has(name)) {
+            const prev = flags[name];
+            if (Array.isArray(prev)) prev.push(next);
+            else flags[name] = prev !== undefined ? [String(prev), next] : [next];
+          } else {
+            flags[name] = next;
+          }
           i += 1;
         } else {
           flags[name] = true;

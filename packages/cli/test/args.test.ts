@@ -58,11 +58,12 @@ describe('args parser', () => {
     expect(raw.flags['json']).toBe(true);
   });
 
-  it('createProgram registers exactly the 16 documented commands', () => {
+  it('createProgram registers exactly the 21 documented commands', () => {
     const program = createProgram();
     expect(program.commands().map((c) => c.name)).toEqual([
       'init', 'discover', 'plan', 'risk', 'impact', 'generate', 'review', 'test',
       'triage', 'heal', 'flake', 'coverage', 'release', 'report', 'doctor', 'explain',
+      'verify', 'matrix', 'audit-rules', 'tokens', 'route',
     ]);
   });
 

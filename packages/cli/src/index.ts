@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 /**
- * @the-qa-skill/cli — the The-QA-Skill command line: 16 commands over the
+ * @the-qa-skill/cli — the The-QA-Skill command line: 21 commands over the
  * deterministic QA core and the 8 specialized agents.
  *
  *   init · discover · plan · risk · impact · generate · review · test ·
- *   triage · heal · flake · coverage · release · report · doctor · explain
+ *   triage · heal · flake · coverage · release · report · doctor · explain ·
+ *   verify · matrix · audit-rules · tokens · route
  *
  * Every command supports --json (a single machine envelope on stdout:
  * { schemaVersion, command, ok, data, label }), --quiet, --verbose, and
@@ -34,6 +35,11 @@ import { releaseCommand } from './commands/release.js';
 import { reportCommand } from './commands/report.js';
 import { doctorCommand } from './commands/doctor.js';
 import { explainCommand } from './commands/explain.js';
+import { verifyCommand } from './commands/verify.js';
+import { matrixCommand } from './commands/matrix.js';
+import { auditRulesCommand } from './commands/audit-rules.js';
+import { tokensCommand } from './commands/tokens.js';
+import { routeCommand } from './commands/route.js';
 
 export const PROGRAM_NAME = 'qa';
 export const CLI_VERSION = '0.1.0';
@@ -62,6 +68,11 @@ export function createProgram(): CliProgram {
   program.register(reportCommand);
   program.register(doctorCommand);
   program.register(explainCommand);
+  program.register(verifyCommand);
+  program.register(matrixCommand);
+  program.register(auditRulesCommand);
+  program.register(tokensCommand);
+  program.register(routeCommand);
   return program;
 }
 

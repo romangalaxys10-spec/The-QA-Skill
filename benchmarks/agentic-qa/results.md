@@ -16,7 +16,7 @@
 | risk | 1 | 1 | 0 | 100% |
 | selection | 0 | 0 | 0 | — |
 
-Mean runtime per fixture: **25.48 ms** (git materialization + engine calls).
+Mean runtime per fixture: **28.50 ms** (git materialization + engine calls).
 
 Notes on counting: one check = one machine expectation from `EXPECTED.md`.
 `payment-regression` is a dual-engine fixture (risk primary + triage side), so its
@@ -27,19 +27,19 @@ this corpus yet — the row exists and reads zero until one lands.
 
 | Fixture | Declared engine | Checks (expected → actual) | Result | Runtime |
 | --- | --- | --- | --- | ---: |
-| a11y-regression | triage | triage/category: SELECTOR_FAILURE → SELECTOR_FAILURE<br>triage/min-confidence: >= 0.8 → 0.90 | PASS | 59.30 ms |
-| api-regression | triage | triage/category: REAL_REGRESSION → REAL_REGRESSION<br>triage/min-confidence: >= 0.9 → 0.92 | PASS | 29.65 ms |
-| auth-bug | triage | triage/category: REAL_REGRESSION → REAL_REGRESSION<br>triage/min-confidence: >= 0.9 → 0.92 | PASS | 28.22 ms |
-| db-regression | triage | triage/category: TEST_DATA_DEFECT → TEST_DATA_DEFECT<br>triage/min-confidence: >= 0.75 → 0.80 | PASS | 27.70 ms |
-| false-negative | quality | quality/quality-score-max: <= 80 → 74<br>quality/deduction-dimension: assertionStrength → negativeCoverage, assertionStrength, boundaryCoverage | PASS | 2.84 ms |
-| false-positive | quality | quality/quality-score-max: <= 70 → 67<br>quality/deduction-dimension: assertionStrength → assertionStrength, determinism<br>quality/deduction-dimension: determinism → assertionStrength, determinism | PASS | 1 ms |
-| flaky-test | triage | triage/category: FLAKE → FLAKE<br>triage/min-confidence: >= 0.85 → 0.88 | PASS | 27.46 ms |
-| missing-coverage | coverage | coverage/gap-area: api → api:app/api/usage.ts | PASS | 25.86 ms |
-| payment-regression | risk | risk/risk-tier: critical → critical (score 25.2)<br>triage/category: REAL_REGRESSION → REAL_REGRESSION<br>triage/min-confidence: >= 0.85 → 0.92 | PASS | 37.39 ms |
-| race-condition | triage | triage/category: FLAKE → FLAKE<br>triage/min-confidence: >= 0.7 → 0.88 | PASS | 37.16 ms |
-| selector-change | triage | triage/category: SELECTOR_FAILURE → SELECTOR_FAILURE<br>triage/min-confidence: >= 0.85 → 0.90 | PASS | 26.39 ms |
-| visual-regression | triage | triage/category: REAL_REGRESSION → REAL_REGRESSION<br>triage/min-confidence: >= 0.7 → 0.92 | PASS | 27.49 ms |
-| weak-assertion | quality | quality/quality-score-max: <= 75 → 58<br>quality/deduction-dimension: assertionStrength → assertionStrength, negativeCoverage, boundaryCoverage, observability<br>quality/deduction-dimension: negativeCoverage → assertionStrength, negativeCoverage, boundaryCoverage, observability<br>quality/deduction-dimension: boundaryCoverage → assertionStrength, negativeCoverage, boundaryCoverage, observability | PASS | 0.81 ms |
+| a11y-regression | triage | triage/category: SELECTOR_FAILURE → SELECTOR_FAILURE<br>triage/min-confidence: >= 0.8 → 0.90 | PASS | 55.78 ms |
+| api-regression | triage | triage/category: REAL_REGRESSION → REAL_REGRESSION<br>triage/min-confidence: >= 0.9 → 0.92 | PASS | 35.09 ms |
+| auth-bug | triage | triage/category: REAL_REGRESSION → REAL_REGRESSION<br>triage/min-confidence: >= 0.9 → 0.92 | PASS | 34.71 ms |
+| db-regression | triage | triage/category: TEST_DATA_DEFECT → TEST_DATA_DEFECT<br>triage/min-confidence: >= 0.75 → 0.80 | PASS | 34 ms |
+| false-negative | quality | quality/quality-score-max: <= 80 → 74<br>quality/deduction-dimension: assertionStrength → negativeCoverage, assertionStrength, boundaryCoverage | PASS | 2.80 ms |
+| false-positive | quality | quality/quality-score-max: <= 70 → 67<br>quality/deduction-dimension: assertionStrength → assertionStrength, determinism<br>quality/deduction-dimension: determinism → assertionStrength, determinism | PASS | 0.93 ms |
+| flaky-test | triage | triage/category: FLAKE → FLAKE<br>triage/min-confidence: >= 0.85 → 0.88 | PASS | 32.50 ms |
+| missing-coverage | coverage | coverage/gap-area: api → api:app/api/usage.ts | PASS | 29.89 ms |
+| payment-regression | risk | risk/risk-tier: critical → critical (score 25.2)<br>triage/category: REAL_REGRESSION → REAL_REGRESSION<br>triage/min-confidence: >= 0.85 → 0.92 | PASS | 42.27 ms |
+| race-condition | triage | triage/category: FLAKE → FLAKE<br>triage/min-confidence: >= 0.7 → 0.88 | PASS | 33.92 ms |
+| selector-change | triage | triage/category: SELECTOR_FAILURE → SELECTOR_FAILURE<br>triage/min-confidence: >= 0.85 → 0.90 | PASS | 34 ms |
+| visual-regression | triage | triage/category: REAL_REGRESSION → REAL_REGRESSION<br>triage/min-confidence: >= 0.7 → 0.92 | PASS | 33.80 ms |
+| weak-assertion | quality | quality/quality-score-max: <= 75 → 58<br>quality/deduction-dimension: assertionStrength → assertionStrength, negativeCoverage, boundaryCoverage, observability<br>quality/deduction-dimension: negativeCoverage → assertionStrength, negativeCoverage, boundaryCoverage, observability<br>quality/deduction-dimension: boundaryCoverage → assertionStrength, negativeCoverage, boundaryCoverage, observability | PASS | 0.79 ms |
 
 ## Known misses
 

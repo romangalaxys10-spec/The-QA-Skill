@@ -48,11 +48,17 @@ jobs:
       - name: Test
         run: npm test
 
-      - name: Doctor self-check (non-blocking)
-        # Runs against the build output, hence after `npm run build`.
-        # `|| true` is deliberate: while the CLI is being built out this
-        # self-check is a placeholder and must not fail CI.
-        run: node packages/cli/dist/index.js doctor || true
+      - name: Skill contract linter (13-section contract + frontmatter)
+        run: node scripts/lint-skills.mjs
+
+      - name: Documentation drift linter (commands + benchmark claims)
+        run: node scripts/lint-docs.mjs
+
+      - name: Doctor self-check
+        # Real probes now (12 checks). continue-on-error keeps infra-only
+        # failures visible without blocking package CI.
+        run: node packages/cli/dist/index.js doctor
+        continue-on-error: true
 
       - name: Validate fixture corpus
         run: node scripts/validate-fixtures.js
@@ -80,6 +86,9 @@ jobs:
         # exit code 0 even when fixture expectations fail (failures are data).
         run: npm run benchmark
 
+      - name: Run xRouteLM routing benchmark
+        run: npx tsx benchmarks/agentic-qa/run-routing.ts
+
       - name: Upload benchmark results
         uses: actions/upload-artifact@v4
         with:
@@ -87,4 +96,6 @@ jobs:
           path: |
             benchmarks/agentic-qa/results.json
             benchmarks/agentic-qa/results.md
+            benchmarks/agentic-qa/results-routing.json
+            benchmarks/agentic-qa/results-routing.md
           if-no-files-found: error

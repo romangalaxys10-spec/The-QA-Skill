@@ -2,6 +2,7 @@
 name: qa-visual
 description: Visual regression discipline for the 'visual' test layer — baseline strategy, diff review, and flakiness controls for screenshot comparisons run through the Playwright runner. Every visual verdict cites its evidence bundle and no baseline is ever updated without a human confirming the change was intentional.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "tool": "xroutelm-routing-benchmark",
+  "disclaimer": "Routing expectations measured with the xRouteLM heuristic scorer over the default QA targets. No LLM, no network. Reproducible via npm run benchmark.",
+  "cases": [
+    { "task": "tests fail intermittently on retry without any code change", "expect": "qa-flake-detection" },
+    { "task": "payment total is wrong after applying a discount coupon at checkout", "expect": "qa-risk-analysis" },
+    { "task": "fix the deadlock between the worker queue and the rate limiter", "expect": "qa-risk-analysis" },
+    { "task": "select the smallest test set for this pull request diff", "expect": "qa-impact-analysis" },
+    { "task": "the login locator broke after the navbar redesign and the test cannot find the button", "expect": "qa-test-healing" },
+    { "task": "87 tests failed in the nightly run, cluster them and find the primary root cause", "expect": "qa-failure-triage" },
+    { "task": "generate test cases for the new refund feature spec", "expect": "qa-test-generation" },
+    { "task": "decide whether release 2.4.0 can ship to production", "expect": "qa-release-gate" },
+    { "task": "run the full QA lifecycle for this repository before the release", "expect": "qa-enterprise" },
+    { "task": "score how risky this database migration change is", "expect": "qa-risk-analysis" },
+    { "task": "this element is not found sometimes when the page loads slowly", "expect": "qa-flake-detection" },
+    { "task": "which tests cover the changed session module in this commit", "expect": "qa-impact-analysis" }
+  ]
+}

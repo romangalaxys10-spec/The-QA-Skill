@@ -2,6 +2,7 @@
 name: qa-impact-analysis
 description: Maps a git diff range onto the smallest high-confidence test set using transitive import-closure coverage, pyramid demotion, routing policy, and the PR e2e budget — with an explicit WHY attached to every selected test. An empty selection is a coverage gap to generate against, never a reason to skip testing.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]

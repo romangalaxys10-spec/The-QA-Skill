@@ -2,6 +2,7 @@
 name: qa-llm-testing
 description: Tests LLM-backed behavior with the same discipline the platform applies to code — versioned prompts, pinned golden outputs, schema-validated responses, and a ten-dimension eval table where every score carries evidence. Treats model output as nondeterministic behavior under test and treats the deterministic provider fallback as part of the contract, never a secret.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]

@@ -43,7 +43,7 @@ export interface CommandContext {
   cwd: string;
   /** Positional tokens after the command name. */
   positionals: string[];
-  flags: Record<string, string | boolean>;
+  flags: Record<string, string | boolean | string[]>;
   parsed: ParsedArgs;
   logger: Logger;
   io: CommandIO;

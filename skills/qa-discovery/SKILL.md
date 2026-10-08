@@ -2,6 +2,7 @@
 name: qa-discovery
 description: Inventories a repository with the deterministic discovery engine — stack signals, test inventory, config files, CI systems, and monorepo shape — before any QA decision is made. Activate at the start of every engagement, when the repo state is unknown, or when a previous discovery may be stale.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]

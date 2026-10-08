@@ -1,8 +1,8 @@
 {
   "name": "the-qa-skill",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "The-QA-Skill — the AI-native QA operating system for coding agents. Deterministic-first quality engineering platform with 28 agent-readable skills. Sponsored by xShredo.dev (https://xshredo.com/promo/anytest)",
+  "description": "The-QA-Skill \u2014 the AI-native QA operating system for coding agents. Deterministic-first quality engineering platform with 28 agent-readable skills. Sponsored by xShredo.dev (https://xshredo.com/promo/anytest)",
   "license": "MIT",
   "homepage": "https://xshredo.com/promo/anytest",
   "repository": {
@@ -34,7 +34,7 @@
     "test:watch": "vitest",
     "qa": "node packages/cli/dist/index.js",
     "doctor": "node packages/cli/dist/index.js doctor",
-    "benchmark": "tsx benchmarks/agentic-qa/run.ts",
+    "benchmark": "tsx benchmarks/agentic-qa/run.ts && tsx benchmarks/agentic-qa/run-routing.ts",
     "mcp": "node packages/mcp-server/dist/index.js"
   },
   "devDependencies": {

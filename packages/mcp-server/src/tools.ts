@@ -40,7 +40,7 @@ const RANGE_PROP = {
 
 const noRequired: string[] = [];
 
-/** The 11 tools, in catalog order. Exported for `tools/list` and tests. */
+/** The 13 tools, in catalog order. Exported for `tools/list` and tests. */
 export const TOOLS: readonly McpToolDefinition[] = [
   {
     name: 'discover_project',
@@ -273,6 +273,39 @@ export const TOOLS: readonly McpToolDefinition[] = [
         },
       },
       required: noRequired,
+    },
+  },
+  {
+    name: 'verify_claim',
+    description:
+      'Ground-truth verification: check a claim against deterministic probes (file existence, content match, ' +
+      'command exit code, git ref, JSON validity). VERIFIED requires every probe to pass; any clean failure ' +
+      'REFUTES the claim and records it in the KNOWN_FALSE registry (refuted claims must not be retried). ' +
+      'Probe errors yield UNKNOWN, never a fabricated answer. READ_ONLY (probes may execute the given command).',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        root: ROOT_PROP,
+        claim: { type: 'string', description: 'The claim to verify' },
+        probes: {
+          type: 'array',
+          description: 'Probe specs, e.g. {"kind":"file_exists","path":"package.json"}',
+          items: { type: 'object' },
+        },
+        repeat: { type: 'boolean', description: 'Run probes twice; agreeing runs upgrade the label to CONFIRMED' },
+      },
+      required: ['claim', 'probes'],
+    },
+  },
+  {
+    name: 'route_task',
+    description:
+      'Route a task description to the QA engine that should own it using the xRouteLM System One scorer ' +
+      '(lexical evidence, probability per target, fallback chain, optional success-rate learning). READ_ONLY.',
+    inputSchema: {
+      type: 'object',
+      properties: { root: ROOT_PROP, task: { type: 'string', description: 'Task description to route' } },
+      required: ['task'],
     },
   },
   {

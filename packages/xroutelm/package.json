@@ -1,0 +1,23 @@
+{
+  "name": "@the-qa-skill/xroutelm",
+  "version": "0.2.0",
+  "description": "xRouteLM — a portable System One decision engine (Jev-compatible choice/score/noul questions) and agent harness. Runs anywhere Laya cannot, without needing Jev. Sponsored by xShredo.dev (https://xshredo.com/promo/anytest)",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "xroutelm": "dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/romangalaxys10-spec/The-QA-Skill.git",
+    "directory": "packages/xroutelm"
+  },
+  "homepage": "https://xshredo.com/promo/anytest",
+  "scripts": {
+    "test": "vitest run"
+  }
+}

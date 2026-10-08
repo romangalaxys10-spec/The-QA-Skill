@@ -2,6 +2,7 @@
 name: qa-flake-detection
 description: Scores tests for flakiness with the documented deterministic formula and converts every verdict into a quarantine or fix decision that is never silent. Mandates fixing nondeterminism — isolation, web-first waits, data uniqueness, clock control — over hiding it with retries.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]

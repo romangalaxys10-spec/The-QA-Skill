@@ -2,6 +2,7 @@
 name: qa-reporting
 description: Renders quality evidence for four deliberately different audiences — engineering, QA, leadership, executive — with verification labels on every claim and honest "no data" where data is absent. Covers the md/json/junit/slack formats, JUnit XML for CI ingestion, Slack verdict colors, and report cadence per orchestration policy.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]

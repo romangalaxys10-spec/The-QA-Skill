@@ -25,7 +25,7 @@ where semantics demand it.
 
 ## Why
 
-Coding agents are great at *writing* tests and terrible at *doing QA*. They jump from "user asked for tests" straight to Playwright code, with no risk model, no selection discipline, no triage, no evidence, and no way to say "I verified this" honestly. The-QA-Skill is the missing operating layer: **28 agent-readable skills** (Layer A) backed by a **deterministic execution platform** (Layer B) with a documented risk algorithm, a 12-category failure classifier, confidence-tiered self-healing, evidence bundles, a quality graph, and a benchmark corpus that measures all of it — 13 broken apps with expected diagnoses, graded honestly.
+Coding agents are great at *writing* tests and terrible at *doing QA*. They jump from "user asked for tests" straight to Playwright code, with no risk model, no selection discipline, no triage, no evidence, and no way to say "I verified this" honestly. The-QA-Skill is the missing operating layer: **30 agent-readable skills** (Layer A) backed by a **deterministic execution platform** (Layer B) with a documented risk algorithm, a 12-category failure classifier, confidence-tiered self-healing, evidence bundles, a quality graph, and a benchmark corpus that measures all of it — 13 broken apps with expected diagnoses, graded honestly.
 
 ## The lifecycle (every QA task, no exceptions)
 
@@ -62,8 +62,8 @@ Layer A — skills the agent reads          Layer B — the execution platform
 │  qa-agent-evaluation       │            │ packages/reporting 4 audiences  │
 │  …24 more                  │            │ packages/data      factories    │
 └────────────────────────────┘            │ packages/reasoning multi-model  │
-                                          │ packages/mcp-server 11 MCP tools│
-                                          │ packages/cli        16 commands │
+                                          │ packages/mcp-server 13 MCP tools│
+                                          │ packages/cli        21 commands │
                                           └─────────────────────────────────┘
 ```
 
@@ -71,6 +71,10 @@ Layer A — skills the agent reads          Layer B — the execution platform
 - **Explainability everywhere**: every conclusion carries `{result, confidence, evidence[], assumptions[], fallbackUsed}` and a verification label — `NOT_VERIFIED / NOT_RUN / INFERRED / OBSERVED / CONFIRMED`.
 - **Safe automation**: every action classified `READ_ONLY / LOW_RISK_WRITE / HIGH_RISK`; HIGH_RISK requires explicit `--confirm-risk`.
 - **No AI magic**: "classified FLAKE (0.88) because: failed then passed on retry, no relevant change, historically intermittent" — never "AI thinks it's probably flaky".
+
+## xRouteLM — System One decisions (routing, gating, model choice)
+
+Fast typed decisions deserve better than an LLM call or a keyword table. xRouteLM (`packages/xroutelm`) implements Jev-compatible question semantics (choice / score / noul) with a portable scorer pipeline: a zero-dependency heuristic scorer that always runs, plus a feature-detected Laya bridge for Apple-Silicon MLX — so it works anywhere Laya cannot, without needing Jev. `qa route "<task>"` routes to the right engine with probabilities, a fallback chain, and recorded evidence; the `SystemOneHarness` gates agent loops and picks fast-vs-powerful models; every decision lands in a JSONL journal and feeds opt-in success-rate learning. See `docs/xroutelm.md` and the routing benchmark (12/12, mean confidence 0.87).
 
 ## The quality graph
 

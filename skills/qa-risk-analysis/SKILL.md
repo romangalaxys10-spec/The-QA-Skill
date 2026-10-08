@@ -2,6 +2,7 @@
 name: qa-risk-analysis
 description: Scores a change set with the documented 8-factor weighted risk engine — every factor carries explicit reasons, tier floors escalate payment/migration/auth/security changes, and the recommended test posture follows the tier. Activate on any diff range before planning test breadth, and whenever someone needs to argue about how much testing a change deserves.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]

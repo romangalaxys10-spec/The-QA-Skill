@@ -2,6 +2,7 @@
 name: qa-mobile
 description: Mobile testing strategy for the 'e2e' layer with an explicit device matrix — Appium capability mapping through the platform-neutral adapter, mobile-specific failure classes, and flakiness controls for device farm runs. Device identity rides on every TestEvent, and cloud farm execution is treated as an external system requiring confirmation.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]

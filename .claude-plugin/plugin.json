@@ -1,0 +1,22 @@
+{
+  "name": "the-qa-skill",
+  "displayName": "The-QA-Skill",
+  "description": "The AI-native QA operating system for coding agents — 30 agent-readable skills, 21 CLI commands, 13 MCP tools, deterministic-first engines, ground-truth verification, and the xRouteLM System One router. Sponsored by xShredo.dev (https://xshredo.com/promo/anytest)",
+  "version": "0.2.0",
+  "license": "MIT",
+  "author": {
+    "name": "The-QA-Skill contributors"
+  },
+  "homepage": "https://xshredo.com/promo/anytest",
+  "repository": "https://github.com/romangalaxys10-spec/The-QA-Skill",
+  "keywords": ["qa", "testing", "quality-engineering", "ai-agents", "mcp", "playwright"],
+  "skills": "./skills",
+  "hooks": "./hooks/hooks.json",
+  "commands": [
+    {
+      "name": "qa",
+      "description": "Run the qa CLI (init, discover, plan, risk, impact, generate, review, test, triage, heal, flake, coverage, release, report, doctor, explain, verify, matrix, audit-rules, tokens, route)",
+      "command": "node packages/cli/dist/index.js"
+    }
+  ]
+}

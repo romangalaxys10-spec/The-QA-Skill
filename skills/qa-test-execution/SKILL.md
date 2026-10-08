@@ -2,6 +2,7 @@
 name: qa-test-execution
 description: Executes test suites under an orchestration policy with strict retry discipline and mandatory evidence collection on every failure. Dry-run first for MCP callers; retries are diagnostics that never hide a regression (golden rule 2).
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]

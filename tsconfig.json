@@ -9,6 +9,7 @@
     { "path": "packages/runners" },
     { "path": "packages/reporting" },
     { "path": "packages/agents" },
+    { "path": "packages/xroutelm" },
     { "path": "packages/mcp-server" },
     { "path": "packages/cli" }
   ]

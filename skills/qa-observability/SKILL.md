@@ -2,6 +2,7 @@
 name: qa-observability
 description: Turns every test execution into structured, scrubbed, append-only evidence — TestEvents for analytics and evidence bundles for failures. Covers what good failure evidence contains, secret scrubbing before artifacts land, retention and privacy discipline, and how observability feeds flake, triage, and learning.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]

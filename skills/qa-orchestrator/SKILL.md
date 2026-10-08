@@ -2,6 +2,7 @@
 name: qa-orchestrator
 description: Intent routing and lifecycle governance for The-QA-Skill. Activate when multiple QA concerns are in play and something must decide what runs, in what order, and what may be skipped.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]

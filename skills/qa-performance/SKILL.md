@@ -2,6 +2,7 @@
 name: qa-performance
 description: Performance testing discipline for the 'performance' layer — k6 scenarios with thresholds-as-tests, honest SLO/budget definitions, and environment truthfulness (CI numbers are INFERRED for production claims). Thresholds live in version control so performance regressions fail the same event pipeline as functional regressions.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]

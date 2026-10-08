@@ -25,6 +25,7 @@
   "homepage": "https://xshredo.com/promo/anytest",
   "dependencies": {
     "@the-qa-skill/agents": "^0.1.0",
-    "@the-qa-skill/core": "^0.1.0"
+    "@the-qa-skill/core": "^0.1.0",
+    "@the-qa-skill/xroutelm": "^0.2.0"
   }
 }

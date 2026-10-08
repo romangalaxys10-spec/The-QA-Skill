@@ -139,3 +139,31 @@ export { discover, detectStack, inventoryTests } from './discovery/stack.js';
 // Utils
 export { runGit, isGitRepo, currentCommit, currentBranch, churnHotspots } from './util/git.js';
 export { listFiles, matchAny } from './util/glob.js';
+
+// Ground-truth verification (claim → probes → VERIFIED/REFUTED + KNOWN_FALSE)
+export {
+  verifyClaim,
+  verifyClaimAsync,
+  claimHash,
+  normalizeClaim,
+  runProbe,
+  runProbeAsync,
+  KnownFalseRegistry,
+} from './verify/index.js';
+export type {
+  ClaimStatus,
+  ClaimVerdict,
+  VerifyOptions,
+  ProbeSpec,
+  ProbeStatus,
+  ProbeOutcome,
+  KnownFalseEntry,
+} from './verify/index.js';
+
+// Mechanical golden-rule audits (`qa audit-rules`)
+export { auditGoldenRules } from './rules/audit.js';
+export type { RuleAuditReport, RuleAuditResult } from './rules/audit.js';
+
+// Token efficiency (DTOC caps)
+export { DTOC_CAPS, compressText, estimateTokens } from './tokens/dtoc.js';
+export type { DtocKind, DtocResult } from './tokens/dtoc.js';

@@ -2,10 +2,11 @@
 name: qa-enterprise
 description: All-in-one entry point to The-QA-Skill. Activate whenever a user asks for QA work — testing, risk, triage, healing, coverage, or release decisions — and this skill routes to the right specialist skills and commands.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]
-bindings: ["all 16 qa CLI commands", "all 11 MCP tools", "Orchestrator.runIntent", "skills/qa-orchestrator"]
+bindings: ["all 21 qa CLI commands", "all 13 MCP tools", "Orchestrator.runIntent", "skills/qa-orchestrator"]
 ---
 
 # QA Enterprise
@@ -114,7 +115,13 @@ Phases may be skipped only when the platform marks them skippable (e.g. GENERATE
 
 ## Output contract
 
-Any command with `--json` returns exactly: `{schemaVersion: 1, command, ok, data, label}`. The engagement ends with a human summary in this shape:
+Any command with `--json` returns exactly this envelope:
+
+```json
+{ "schemaVersion": 1, "command": "release", "ok": false, "data": { "…": "command payload" }, "label": "OBSERVED" }
+```
+
+`label` is the epistemics field (NOT_VERIFIED | NOT_RUN | INFERRED | OBSERVED | CONFIRMED). The engagement ends with a human summary in this shape:
 
 ```
 QA REVIEW: HIGH RISK (Risk: 87/100)

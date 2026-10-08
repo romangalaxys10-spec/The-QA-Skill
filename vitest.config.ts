@@ -21,6 +21,7 @@ export default defineConfig({
       { find: '@the-qa-skill/runners', replacement: r('./packages/runners/src/index.ts') },
       { find: '@the-qa-skill/reporting', replacement: r('./packages/reporting/src/index.ts') },
       { find: '@the-qa-skill/agents', replacement: r('./packages/agents/src/index.ts') },
+      { find: '@the-qa-skill/xroutelm', replacement: r('./packages/xroutelm/src/index.ts') },
       { find: '@the-qa-skill/mcp-server', replacement: r('./packages/mcp-server/src/index.ts') },
     ],
   },

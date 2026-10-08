@@ -1,0 +1,13 @@
+{
+  "name": "the-qa-skill-marketplace",
+  "displayName": "The-QA-Skill Marketplace",
+  "description": "The-QA-Skill — the AI-native QA operating system, installable as a single plugin. Sponsored by xShredo.dev (https://xshredo.com/promo/anytest)",
+  "version": "0.2.0",
+  "plugins": [
+    {
+      "name": "the-qa-skill",
+      "source": "./",
+      "description": "Full QA OS: skills + hooks + qa CLI bindings. Deterministic-first quality engineering with evidence labels on every verdict."
+    }
+  ]
+}

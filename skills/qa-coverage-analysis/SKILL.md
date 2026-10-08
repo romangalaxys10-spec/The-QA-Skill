@@ -2,6 +2,7 @@
 name: qa-coverage-analysis
 description: Computes risk-WEIGHTED coverage — business-area weights decide which uncovered files are gaps worth reporting — and surfaces critical-flow coverage from config. Frames every number as INFERRED inventory analysis: line coverage is not confidence, and the gate at 60% is a warning input, not a quality certificate.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]

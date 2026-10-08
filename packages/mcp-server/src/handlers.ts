@@ -36,6 +36,9 @@ import type {
 } from '@the-qa-skill/core';
 import type { FeatureSpec } from '@the-qa-skill/agents';
 import { AGENTS_UNAVAILABLE_MESSAGE, constructAgent, requireAgent, type TriageAgentContext, type RiskAgentAssessment } from './agents.js';
+import { KnownFalseRegistry, verifyClaimAsync } from '@the-qa-skill/core';
+import type { ProbeSpec } from '@the-qa-skill/core';
+import { DecisionEngine, ScorerRegistry, defaultTargets } from '@the-qa-skill/xroutelm';
 import { ToolError, errorMessage } from './errors.js';
 import { computeGate, normalizeReviewResult, renderQualityReport } from './report.js';
 import { HEALING_KINDS, ORCHESTRATION_POLICIES, REPORT_AUDIENCES, type HealingKindArg, type ReportAudience } from './tools.js';
@@ -71,6 +74,8 @@ export const TOOL_HANDLERS: Readonly<Record<string, ToolHandler>> = {
   analyze_flake: handleAnalyzeFlake,
   generate_quality_report: handleGenerateQualityReport,
   evaluate_release: handleEvaluateRelease,
+  verify_claim: handleVerifyClaim,
+  route_task: handleRouteTask,
 };
 
 // ---------------------------------------------------------------------------
@@ -738,6 +743,62 @@ function handleEvaluateRelease(args: ToolArgs): unknown {
     throw new ToolError('Invalid params: "gateInput" must be an object');
   }
   return computeGate(raw as Partial<ReleaseGateInput> | undefined);
+}
+
+// ---------------------------------------------------------------------------
+// 12. verify_claim (ground truth)
+// ---------------------------------------------------------------------------
+
+/** Deterministic claim verification with KNOWN_FALSE persistence. */
+async function handleVerifyClaim(args: ToolArgs, ctx: ToolContext): Promise<unknown> {
+  const root = optRoot(args, ctx);
+  const claim = requireString(args, 'claim');
+  const rawProbes = args['probes'];
+  if (!Array.isArray(rawProbes) || rawProbes.length === 0) {
+    throw new ToolError('Invalid params: "probes" must be a non-empty array of probe objects');
+  }
+  const probes: ProbeSpec[] = rawProbes.map((p, i) => {
+    if (!isRecord(p)) throw new ToolError(`Invalid params: probes[${i}] must be an object`);
+    const kind = p['kind'];
+    if (typeof kind !== 'string') throw new ToolError(`Invalid params: probes[${i}].kind must be a string`);
+    switch (kind) {
+      case 'file_exists':
+      case 'json_valid':
+      case 'dir_exists':
+        return { kind, path: String(p['path'] ?? '') };
+      case 'file_contains':
+      case 'file_not_contains':
+        return { kind, path: String(p['path'] ?? ''), pattern: String(p['pattern'] ?? '') };
+      case 'cmd_exit_zero':
+        return { kind, command: String(p['command'] ?? '') };
+      case 'git_ref_exists':
+        return { kind, ref: String(p['ref'] ?? '') };
+      default:
+        throw new ToolError(`Invalid params: probes[${i}].kind "${kind}" is not a supported probe`);
+    }
+  });
+  const repeat = optBoolean(args, 'repeat', false);
+  const verdict = await verifyClaimAsync(claim, probes, { cwd: root, repeat });
+  let knownFalseRecorded: string | null = null;
+  if (verdict.status === 'REFUTED') {
+    const registry = new KnownFalseRegistry(join(root, '.theqa', 'known-false.json'));
+    knownFalseRecorded = registry.add(claim, 'refuted via MCP verify_claim', verdict.probes.find((p) => p.status === 'FAIL')?.observation ?? 'probe failed').hash;
+  }
+  return { verdict, knownFalseRecorded };
+}
+
+// ---------------------------------------------------------------------------
+// 13. route_task (xRouteLM)
+// ---------------------------------------------------------------------------
+
+/** Route a task to the owning QA engine with the xRouteLM System One scorer. */
+async function handleRouteTask(args: ToolArgs, ctx: ToolContext): Promise<unknown> {
+  const root = optRoot(args, ctx);
+  const task = requireString(args, 'task');
+  const engine = new DecisionEngine(ScorerRegistry.withDefaults(), undefined);
+  const decision = await engine.route(task, defaultTargets());
+  ctx.logger.debug(`route_task → ${decision.target} (${decision.confidence})`);
+  return { task, decision };
 }
 
 // ---------------------------------------------------------------------------

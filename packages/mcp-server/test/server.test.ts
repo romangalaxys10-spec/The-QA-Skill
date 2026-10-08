@@ -19,6 +19,8 @@ const EXPECTED_TOOLS = new Set([
   'analyze_flake',
   'generate_quality_report',
   'evaluate_release',
+  'verify_claim',
+  'route_task',
 ]);
 
 /** A server wired to an empty input and a capturing output (handleLine only). */
@@ -107,11 +109,11 @@ describe('McpServer.handleLine — handshake and protocol', () => {
 });
 
 describe('McpServer.handleLine — tools/list contract', () => {
-  it('lists exactly the 11 documented tools with usable schemas', async () => {
+  it('lists exactly the 13 documented tools with usable schemas', async () => {
     const { server } = makeServer();
     const res = await send(server, { jsonrpc: '2.0', id: 2, method: 'tools/list' });
     const tools = (res?.result as { tools: Array<Record<string, unknown>> }).tools;
-    expect(tools).toHaveLength(11);
+    expect(tools).toHaveLength(13);
     expect(new Set(tools.map((t) => t.name))).toEqual(EXPECTED_TOOLS);
     for (const tool of tools) {
       expect(typeof tool.name).toBe('string');
@@ -178,7 +180,7 @@ describe('McpServer start/stop — sequential read loop', () => {
     await server.start();
     expect(written).toHaveLength(3);
     expect(written.map((l) => JSON.parse(l).id)).toEqual([1, 2, 3]);
-    expect(JSON.parse(written[1] as string).result.tools).toHaveLength(11);
+    expect(JSON.parse(written[1] as string).result.tools).toHaveLength(13);
     expect(server.isRunning).toBe(false);
   });
 

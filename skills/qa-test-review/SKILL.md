@@ -2,6 +2,7 @@
 name: qa-test-review
 description: Reviews test files with the 17-dimension quality engine and explains every deduction before any test is rewritten. Read-only gatekeeper that separates blocking findings (secrets, tests that cannot fail) from advisory ones.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]

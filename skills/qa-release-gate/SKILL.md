@@ -2,6 +2,7 @@
 name: qa-release-gate
 description: Computes the release verdict with the platform's deterministic gate — the same decision table every time, from failedRealRegressions and triage confidence to coverage floors and evidence completeness. Never PASS on no data, never a hidden warning, never a BLOCKED without named findings.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]

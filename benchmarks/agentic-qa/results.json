@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "tool": "agentic-qa-benchmark",
-  "generatedAt": "2026-10-07T14:18:59.823Z",
+  "generatedAt": "2026-10-08T10:19:44.615Z",
   "node": "v24.21.0",
   "disclaimer": "Measured on the fixture corpus of this repository with the deterministic engines in packages/core. No LLM, no network, no randomness. Reproducible via npm run benchmark.",
   "fixturesRun": 13,
@@ -39,14 +39,14 @@
     "falseNegatives": {},
     "falsePositives": {}
   },
-  "meanRuntimeMs": 25.483842307692306,
+  "meanRuntimeMs": 28.49868538461539,
   "harnessErrors": [],
   "details": [
     {
       "fixture": "a11y-regression",
       "declaredEngine": "triage",
       "pass": true,
-      "runtimeMs": 59.300254,
+      "runtimeMs": 55.781519,
       "checks": [
         {
           "engine": "triage",
@@ -88,7 +88,7 @@
       "fixture": "api-regression",
       "declaredEngine": "triage",
       "pass": true,
-      "runtimeMs": 29.646682,
+      "runtimeMs": 35.093794,
       "checks": [
         {
           "engine": "triage",
@@ -129,7 +129,7 @@
       "fixture": "auth-bug",
       "declaredEngine": "triage",
       "pass": true,
-      "runtimeMs": 28.223079,
+      "runtimeMs": 34.708573,
       "checks": [
         {
           "engine": "triage",
@@ -170,7 +170,7 @@
       "fixture": "db-regression",
       "declaredEngine": "triage",
       "pass": true,
-      "runtimeMs": 27.699308,
+      "runtimeMs": 34.006524,
       "checks": [
         {
           "engine": "triage",
@@ -212,7 +212,7 @@
       "fixture": "false-negative",
       "declaredEngine": "quality",
       "pass": true,
-      "runtimeMs": 2.841278,
+      "runtimeMs": 2.804653,
       "checks": [
         {
           "engine": "quality",
@@ -251,7 +251,7 @@
       "fixture": "false-positive",
       "declaredEngine": "quality",
       "pass": true,
-      "runtimeMs": 1.016112,
+      "runtimeMs": 0.929765,
       "checks": [
         {
           "engine": "quality",
@@ -296,7 +296,7 @@
       "fixture": "flaky-test",
       "declaredEngine": "triage",
       "pass": true,
-      "runtimeMs": 27.457911,
+      "runtimeMs": 32.50361,
       "checks": [
         {
           "engine": "triage",
@@ -344,7 +344,7 @@
       "fixture": "missing-coverage",
       "declaredEngine": "coverage",
       "pass": true,
-      "runtimeMs": 25.863039,
+      "runtimeMs": 29.885408,
       "checks": [
         {
           "engine": "coverage",
@@ -373,7 +373,7 @@
       "fixture": "payment-regression",
       "declaredEngine": "risk",
       "pass": true,
-      "runtimeMs": 37.390294,
+      "runtimeMs": 42.274966,
       "checks": [
         {
           "engine": "risk",
@@ -456,7 +456,7 @@
       "fixture": "race-condition",
       "declaredEngine": "triage",
       "pass": true,
-      "runtimeMs": 37.161024,
+      "runtimeMs": 33.916226,
       "checks": [
         {
           "engine": "triage",
@@ -504,7 +504,7 @@
       "fixture": "selector-change",
       "declaredEngine": "triage",
       "pass": true,
-      "runtimeMs": 26.388274,
+      "runtimeMs": 33.985411,
       "checks": [
         {
           "engine": "triage",
@@ -545,7 +545,7 @@
       "fixture": "visual-regression",
       "declaredEngine": "triage",
       "pass": true,
-      "runtimeMs": 27.488061,
+      "runtimeMs": 33.798789,
       "checks": [
         {
           "engine": "triage",
@@ -586,7 +586,7 @@
       "fixture": "weak-assertion",
       "declaredEngine": "quality",
       "pass": true,
-      "runtimeMs": 0.814634,
+      "runtimeMs": 0.793672,
       "checks": [
         {
           "engine": "quality",

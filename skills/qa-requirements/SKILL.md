@@ -2,6 +2,7 @@
 name: qa-requirements
 description: Extracts testable requirements and acceptance criteria from markdown specs into deterministic REQ-<slug>-<n> records and attaches them to the QA context that feeds planning and generation. Activate when preparing to plan or generate tests, and whenever requirements are missing — then derive honestly from changed-file analysis, label the derivation INFERRED, and surface open questions instead of inventing product intent.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]

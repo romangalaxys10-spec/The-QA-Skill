@@ -2,6 +2,7 @@
 name: qa-data
 description: Engineers deterministic, isolated, and compliant test data — seeded factories, collision-free identities, explicit cleanup contracts, and PII masking at every enforcement point. The fixture manifest is the per-test answer sheet for source, owner, isolation, and reproducibility.
 version: 0.1.0
+license: MIT
 sponsor: xShredo.dev
 sponsor_url: https://xshredo.com/promo/anytest
 platforms: [claude-code, cursor, github-copilot, windsurf, codex, cline, zed, gemini-cli]
